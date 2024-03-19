@@ -186,6 +186,20 @@
     >
   </v-data-table-virtual> -->
 
+  <v-alert 
+    border="start"
+    border-color="white"
+    
+    color="red"
+    class="mb-3"
+    
+    >
+    <span class="text-overline font-weight-bold">Atenção:</span> <span class="text-body-2">Os dados abaixo são dados falsos (ou "dummy") usados apenas para fins de demonstração e desenvolvimento!</span>
+    <!-- <v-chip v-for="i in filtrosAtivos">
+      {{i.nome}}
+    </v-chip> -->
+  </v-alert>
+
   <v-data-table
     :items="dados_carregamentos"
     fixed-header

@@ -19,6 +19,18 @@
     
   </v-breadcrumbs>
 
+  <v-alert 
+    border="start"
+    border-color="white"
+    color="red"
+    class="mb-3"
+    >
+    <span class="text-overline font-weight-bold">Atenção:</span> <span class="text-body-2">Os dados abaixo são dados falsos (ou "dummy") usados apenas para fins de demonstração e desenvolvimento!</span>
+    <!-- <v-chip v-for="i in filtrosAtivos">
+      {{i.nome}}
+    </v-chip> -->
+  </v-alert>
+
   <!-- <TituloPagina texto="Clientes" /> -->
   <v-row justify="start" no-gutters>
     <v-col cols="3" v-for="i in cartoes"  class="mr-6 mb-6">
@@ -97,5 +109,4 @@ onMounted(async () => {
 </script>
 
 <style>
-
 </style>
