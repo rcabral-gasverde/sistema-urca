@@ -1,0 +1,363 @@
+[
+    {
+        "nome_razao_social": "AMBEV S.A.",
+        "cnpj": "07.526.557/0068-17",
+        "endereco": "Rod. RJ-122, 35.000, KM 35",
+        "bairro": "Porto de Tabuado",
+        "cep": "28.680-000",
+        "municipio": "Cachoeiras de Macacu",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(19) 3313-6039",
+        "insc_estadual": "87363945",
+        "meta": {
+            "cliente_cod": "ambev_cachoeiras",
+            "cliente_sigla": "AMBV",
+            "empresa_atende": "gas_verde",
+            "tipo": "industria",
+            "apelido": "Ambev - Cachoeiras de Macacu"
+        }
+    },
+    {
+        "nome_razao_social": "A P JET REVENDA DE COMBUSTIVEL LTDA",
+        "cnpj": "39.758.990/0001-67",
+        "endereco": "Rod. Lúcio Meira, KM 14, BR 393",
+        "bairro": "Dom Bosco",
+        "cep": "27.250-050",
+        "municipio": "Volta Redonda",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(24) 3467-1961",
+        "insc_estadual": "84837490",
+        "meta": {
+            "cliente_cod": "apjet_voltaredonda",
+            "cliente_sigla": "APJT",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "AP Jet - Volta Redonda"
+        }
+    },
+    {
+        "nome_razao_social": "AUTO POSTO BARRETAO EIRELI",
+        "cnpj": "16.591.803/0001-06",
+        "endereco": "Av. Doutor Eugênio Borges, 9651",
+        "bairro": "Tribobó",
+        "cep": "24.751-000",
+        "municipio": "São Gonçalo",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 2605-2091",
+        "insc_estadual": "79726184",
+        "meta": {
+            "cliente_cod": "barretao_saogoncalo",
+            "cliente_sigla": "BARR",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Barretão - São Gonçalo"
+        }
+    },
+    {
+        "nome_razao_social": "AUTO POSTO CAMPOS ELISEOS LTDA",
+        "cnpj": "45.456.832/0001-55",
+        "endereco": "Rua Antônio de Carvalho Lage Filho, 133",
+        "bairro": "Parque Campos Elíseos",
+        "cep": "25.225-710",
+        "municipio": "Duque de Caxias",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21)2676-3330",
+        "insc_estadual": "12546289",
+        "meta": {
+            "cliente_cod": "camposeliseos_duquedecaxias",
+            "cliente_sigla": "ELIS",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Campos Elíseos - Duque de Caxias"
+        }
+    },
+    {
+        "nome_razao_social": "OURENSE DO BRASIL INDUSTRIA DE ARTEFATOS DE METAL LTDA",
+        "cnpj": "10.277.146/0001-32",
+        "endereco": "Estrada RJ 127, S/N, Lt 08 Parte Lot. Industrial",
+        "bairro": "Lages",
+        "cep": "26.600-000",
+        "municipio": "Paracambi",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "",
+        "insc_estadual": "78568461",
+        "meta": {
+            "cliente_cod": "escadasbotafogo_paracambi",
+            "cliente_sigla": "EBTF",
+            "empresa_atende": "urca_gas",
+            "tipo": "industria",
+            "apelido": "Escadas Botafogo - Paracambi"
+        }
+    },
+    {
+        "nome_razao_social": "AUTO CENTER EXPRESSO LTDA",
+        "cnpj": "14.986.618/0001-87",
+        "endereco": "Estrada Adhemar Bebiano, 3.385",
+        "bairro": "Inhaúma",
+        "cep": "20.765-170",
+        "municipio": "Rio de Janeiro",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 2261-6145",
+        "insc_estadual": "79598321",
+        "meta": {
+            "cliente_cod": "expresso_riodejaneiro",
+            "cliente_sigla": "EXPR",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Expresso - Inhaúma"
+        }
+    },
+    {
+        "nome_razao_social": "AUTO POSTO PALMEIRAS DE GUARATIBA LTDA",
+        "cnpj": "33.106.995/0001-29",
+        "endereco": "Av. das Américas, 000, Av. Dom João VI, 14001",
+        "bairro": "Guaratiba",
+        "cep": "23.587-020",
+        "municipio": "Rio de Janeiro",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 2450-3319",
+        "insc_estadual": "11461069",
+        "meta": {
+            "cliente_cod": "guaratiba_riodejaneiro",
+            "cliente_sigla": "GUAR",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Guaratiba"
+        }
+    },
+    {
+        "nome_razao_social": "POSTO MAIA DE MAUA LTDA",
+        "cnpj": "29.762.220/0001-34",
+        "endereco": "Estrada Barão de Mauá, 6.045",
+        "bairro": "Praia da Esperança",
+        "cep": "25.930-000",
+        "municipio": "Magé",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 2678-2826",
+        "insc_estadual": "11533990",
+        "meta": {
+            "cliente_cod": "maia_mage",
+            "cliente_sigla": "MAIA",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Maia de Mauá - Magé"
+        }
+    },
+    {
+        "nome_razao_social": "POSTO MANGUEIRINHA GNV LTDA",
+        "cnpj": "27.101.636/0001-86",
+        "endereco": "Av. Theonas Martins Gomes, S/N, Lt 11 Qd H",
+        "bairro": "Mangueirinha",
+        "cep": "28.800-000",
+        "municipio": "Rio Bonito",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 2734-2566",
+        "insc_estadual": "87311880",
+        "meta": {
+            "cliente_cod": "mangueirinha_riobonito",
+            "cliente_sigla": "MANG",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Mangueirinha - Rio Bonito"
+        }
+    },
+    {
+        "nome_razao_social": "COMERCIAL MIGUEL I LTDA",
+        "cnpj": "28.464.542/0001-34",
+        "endereco": "Est. do Engenho Novo, 1.466, Lj. A",
+        "bairro": "Parque Anchieta",
+        "cep": "21.635-002",
+        "municipio": "Rio de Janeiro",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 2473-3366",
+        "insc_estadual": "87437370",
+        "meta": {
+            "cliente_cod": "miguel_riodejaneiro",
+            "cliente_sigla": "MIGU",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Miguel - Anchieta"
+        }
+    },
+    {
+        "nome_razao_social": "AUTO POSTO PITICO LTDA",
+        "cnpj": "47.476.061/0001-93",
+        "endereco": "Rod. Washington Luiz, SN, Qd 01 A Lt 01 E",
+        "bairro": "Chácaras Arcampo",
+        "cep": "25.230-005",
+        "municipio": "Duque de Caxias",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 2676-3330",
+        "insc_estadual": "12692536",
+        "meta": {
+            "cliente_cod": "pitico_duquedecaxias",
+            "cliente_sigla": "PITI",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Pitico - Duque de Caxias"
+        }
+    },
+    {
+        "nome_razao_social": "SAINT-GOBAIN DO BRASIL PRODUTOS INDUSTRIAIS E PARA CONSTRUCAO LTDA",
+        "cnpj": "61.064.838/0036-63",
+        "endereco": "Rua E, SN, Lt 12 e 13",
+        "bairro": "Distrito Industrial",
+        "cep": "26.315-020",
+        "municipio": "Queimados",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 2123-6805",
+        "insc_estadual": "78498684",
+        "meta": {
+            "cliente_cod": "saintgobain_queimados",
+            "cliente_sigla": "SGOB",
+            "empresa_atende": "gas_verde",
+            "tipo": "industria",
+            "apelido": "Saint-Gobain - Queimados"
+        }
+    },
+    {
+        "nome_razao_social": "POSTO DE GASOLINA RENAZA DE MAGE LTDA",
+        "cnpj": "03.381.699/0001-75",
+        "endereco": "Rod. Rio-Teresópolis, 16.886",
+        "bairro": "Santa Dalila",
+        "cep": "25.900-001",
+        "municipio": "Magé",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 4148-2338",
+        "insc_estadual": "75895720",
+        "meta": {
+            "cliente_cod": "santadalilarenaza_mage",
+            "cliente_sigla": "DALI",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Santa Dalila (Renaza) - Magé"
+        }
+    },
+    {
+        "nome_razao_social": "POSTO DE GASOLINA NOVA SANTOS DUMONT LTDA",
+        "cnpj": "05.649.227/0001-86",
+        "endereco": "Av. Santos Dumont, 1.513",
+        "bairro": "Piabetá",
+        "cep": "25.931-758",
+        "municipio": "Magé",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 4148-2338",
+        "insc_estadual": "77547258",
+        "meta": {
+            "cliente_cod": "novasantosdumont_mage",
+            "cliente_sigla": "DUMO",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Santos Dumont - Piabetá"
+        }
+    },
+    {
+        "nome_razao_social": "POSTO DE GASOLINA NOVA SARACURUNA LTDA",
+        "cnpj": "05.056.673/0001-87",
+        "endereco": "Av. Presidente Roosevelt, 842, Lt. 18 ao 20",
+        "bairro": "Saracuruna",
+        "cep": "25.211-120",
+        "municipio": "Duque de Caxias",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 4148-2338",
+        "insc_estadual": "77716114",
+        "meta": {
+            "cliente_cod": "novasaracuruna_duquedecaxias",
+            "cliente_sigla": "SARA",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Saracuruna (Renaza) - Duque de Caxias"
+        }
+    },
+    {
+        "nome_razao_social": "SHEKINAH DE CAMPO GRANDE LIMITADA",
+        "cnpj": "42.401.018/0001-45",
+        "endereco": "Estrada do Campinho, 3.229",
+        "bairro": "Campo Grande",
+        "cep": "23.070-220",
+        "municipio": "Rio de Janeiro",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 3495-5768",
+        "insc_estadual": "82320237",
+        "meta": {
+            "cliente_cod": "shekinah_riodejaneiro",
+            "cliente_sigla": "SHEK",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Shekinah - Campo Grande"
+        }
+    },
+    {
+        "nome_razao_social": "TERNIUM BRASIL LTDA.",
+        "cnpj": "07.005.330/0001-19",
+        "endereco": "Avenida João XXIII, S/N",
+        "bairro": "Santa Cruz",
+        "cep": "23.560-352",
+        "municipio": "Rio de Janeiro",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 2507-4209",
+        "insc_estadual": "77863508",
+        "meta": {
+            "cliente_cod": "ternium_santacruz_riodejaneiro",
+            "cliente_sigla": "TERN",
+            "empresa_atende": "gas_verde",
+            "tipo": "industria",
+            "apelido": "Ternium - Rio de Janeiro"
+        }
+    },
+    {
+        "nome_razao_social": "ORGANIZACAO CANTAGALO LTDA",
+        "cnpj": "32.356.537/0001-85",
+        "endereco": "Rua Aparecida, 593",
+        "bairro": "Aparecida",
+        "cep": "27.600-000",
+        "municipio": "Valença",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "",
+        "insc_estadual": "80462425",
+        "meta": {
+            "cliente_cod": "cantagalo_valenca",
+            "cliente_sigla": "VLNC",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Cantagalo (Universitário) - Valença"
+        }
+    },
+    {
+        "nome_razao_social": "POSTO DE COMBUSTIVEIS COMERCIAL VIENA LTDA",
+        "cnpj": "34.318.114/0001-04",
+        "endereco": "Avenida Automóvel Clube, 2.530",
+        "bairro": "São José",
+        "cep": "26.193-000",
+        "municipio": "Belford Roxo",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 3556-7406",
+        "insc_estadual": "",
+        "meta": {
+            "cliente_cod": "viena_belfordroxo",
+            "cliente_sigla": "VIEN",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Viena - Belford Roxo"
+        }
+    }
+]

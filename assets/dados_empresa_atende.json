@@ -1,0 +1,38 @@
+[
+    {
+        "nome_razao_social": "GAS VERDE S.A. - SEROPEDICA FILIAL",
+        "cnpj": "11.131.464/0005-87",
+        "endereco": "Estrada Santa Rosa, S/N",
+        "bairro": "Piranema",
+        "cep": "23.898-772",
+        "municipio": "Seropédica",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 2213-2552",
+        "insc_estadual": "11086535",
+        "meta": {
+            "empresa_atende": "",
+            "tipo": "",
+            "apelido": "Gás Verde - Seropédica",
+            "cod": "gas_verde"
+        }
+    },
+    {
+        "nome_razao_social": "URCA COMERCIALIZADORA DE GAS NATURAL S/A",
+        "cnpj": "32.704.431/0001-25",
+        "endereco": "Avenida das Américas, 700, Blc. 5 Sala 201",
+        "bairro": "Barra da Tijuca",
+        "cep": "22.640-100",
+        "municipio": "Rio de Janeiro",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21) 3449-3999",
+        "insc_estadual": "12207573",
+        "meta": {
+            "empresa_atende": "",
+            "tipo": "",
+            "apelido": "Urca Gás",
+            "cod": "urca_gas"
+        }
+    }
+]
