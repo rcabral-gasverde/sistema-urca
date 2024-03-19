@@ -240,6 +240,10 @@ function fn_preencher_lista_clientes_apelido() {
       partialObj.value = obj.meta.cliente_cod;
       arrayTemp.push(partialObj);
   })
+  arrayTemp = arrayTemp.sort((a, b) => {
+    if(a.title < b.title) {return -1};
+    if(a.title > b.title) {return 1};
+  });
   lista_clientes_apelido.value = arrayTemp;
 }
 
@@ -289,7 +293,7 @@ async function fn_preencher_declaracao_num() {
 
 }
 
-function fn_registrar_declaracao() {
+async function fn_registrar_declaracao() {
   dados_para_pdf.value = {
     'cliente': {
       'razao_social': razao_social.value,
@@ -339,6 +343,7 @@ function fn_registrar_declaracao() {
     }
   }
   
+  await navigateTo('/central_operacoes/declaracoes')
   criarPDF(dados_para_pdf.value);
   fn_post_declaracao(dados_para_post.value);
 }

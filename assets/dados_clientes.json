@@ -1,5 +1,43 @@
 [
     {
+        "nome_razao_social": "POSTO DE GASOLINA GIGANTE DA WASHINGTON LUIZ LTDA",
+        "cnpj": "30.961.525/0001-54",
+        "endereco": "Rod. Washington Luiz, S/N, Lt 00013 0002",
+        "bairro": "Vila Actura",
+        "cep": "25.225-015",
+        "municipio": "Duque de Caxias",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21)3176-5950",
+        "insc_estadual": "11690980",
+        "meta": {
+            "cliente_cod": "ale_caxias",
+            "cliente_sigla": "ALEC",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Ale Caxias - Duque de Caxias"
+        }
+    },
+    {
+        "nome_razao_social": "POSTO DE GASOLINA E SERVICOS ALADIM LTDA",
+        "cnpj": "29.040.854/0001-83",
+        "endereco": "Rua Belchior da Fonseca, 30",
+        "bairro": "Pedra de Guaratiba",
+        "cep": "23.027-260",
+        "municipio": "Rio de Janeiro",
+        "uf": "RJ",
+        "pais": "Brasil",
+        "fone_fax": "(21)2485-4514",
+        "insc_estadual": "79490466",
+        "meta": {
+            "cliente_cod": "aladim",
+            "cliente_sigla": "ALAD",
+            "empresa_atende": "urca_gas",
+            "tipo": "posto",
+            "apelido": "Aladim - Sepetiba"
+        }
+    },
+    {
         "nome_razao_social": "AMBEV S.A.",
         "cnpj": "07.526.557/0068-17",
         "endereco": "Rod. RJ-122, 35.000, KM 35",
