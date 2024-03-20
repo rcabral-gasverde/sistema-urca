@@ -40,6 +40,21 @@
         </v-autocomplete>
       </v-col>
     </v-row> -->
+
+    <v-alert 
+      border="start"
+      border-color="white"
+      
+      color="red"
+      class="mb-3"
+      
+      >
+      <span class="text-overline font-weight-bold">Atenção:</span> <span class="text-body-2">O formulário abaixo é apenas para fins de demonstração e desenvolvimento!</span>
+      <!-- <v-chip v-for="i in filtrosAtivos">
+        {{i.nome}}
+      </v-chip> -->
+    </v-alert>
+
     <v-row>
       <v-col cols="12" sm="12" md="12" lg="8">
         <v-expansion-panels multiple variant="accordion" v-model="paineis">
