@@ -49,7 +49,7 @@
       class="mb-3"
       
       >
-      <span class="text-overline font-weight-bold">Atenção:</span> <span class="text-body-2">O formulário abaixo é apenas para fins de demonstração e desenvolvimento!</span>
+      <span class="text-overline font-weight-bold">Atenção:</span> <span class="text-body-2">O formulário abaixo é apenas para fins de demonstração e desenvolvimento! Se o usuário registrar a entrada de carreta, isto não gerará nenhum probema.</span>
       <!-- <v-chip v-for="i in filtrosAtivos">
         {{i.nome}}
       </v-chip> -->
