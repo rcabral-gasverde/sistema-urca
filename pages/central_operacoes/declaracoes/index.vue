@@ -578,8 +578,8 @@ async function getDeclaracoes() {
     url_params += '&status=' + filter_dialog_status.value
   } 
 
-  // declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/get' + url_params)
-  declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/get' + url_params)
+  declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/get' + url_params)
+  // declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/get' + url_params)
     .then(async res => {
       if(res.status == 200) {
         console.log("Declarações obtidas com sucesso!");
@@ -716,8 +716,8 @@ function mostrar_dialog_cancelar_declaracao() {
 }
 
 async function cancelar_declaracao(id) {
-  // await axios.put('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/update?id=' + id + '&status=Cancelada' + '&motivo_cancelamento=' + motivoCancelamentoDeclaracao.value).then(async res => {
-  await axios.put('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/update?id=' + id + '&status=Cancelada' + '&motivo_cancelamento=' + motivoCancelamentoDeclaracao.value).then(async res => {
+  await axios.put('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/update?id=' + id + '&status=Cancelada' + '&motivo_cancelamento=' + motivoCancelamentoDeclaracao.value).then(async res => {
+  // await axios.put('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/update?id=' + id + '&status=Cancelada' + '&motivo_cancelamento=' + motivoCancelamentoDeclaracao.value).then(async res => {
     // console.log(res.status)
     if(res.status == 200) {
       console.log("Declaração cancelada com sucesso!")

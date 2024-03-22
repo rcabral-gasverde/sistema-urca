@@ -218,7 +218,7 @@ async function fetchPlacasCarretas() {
 
 async function fetchLastDeclaracaoCliente(codigo) {
   // const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/getLast?cliente_cod=' + codigo + '&data_saida=' + new Date(declaracao_data_saida.value).toString());
-  const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/getLast?cliente_cod=' + codigo + '&data_saida=' + new Date(declaracao_data_saida.value).toString());
+  const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/getLast?cliente_cod=' + codigo + '&data_saida=' + new Date(declaracao_data_saida.value).toString());
   console.log('~fetch: ' + lastDecClienteResponse.data[0])
   // const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/getLastCliente?cliente_codigo=' + codigo)
   // console.log("lastDecClienteResponse.data[0]: " + lastDecClienteResponse.data[0])
@@ -372,7 +372,7 @@ function fn_resetar_declaracao() {
 
 function fn_post_declaracao(dados_para_post) {
   axios.post(
-    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/create', 
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/create', 
     dados_para_post
   );
 }
