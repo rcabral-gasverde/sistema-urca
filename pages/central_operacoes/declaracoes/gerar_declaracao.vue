@@ -217,7 +217,7 @@ async function fetchPlacasCarretas() {
 // }
 
 async function fetchLastDeclaracaoCliente(codigo) {
-  // const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/getLastClienteMesAno?cliente_codigo=' + codigo + '&mes=' + (new Date(declaracao_data_saida.value).getMonth() + 1).toString() + '&ano=' + new Date(declaracao_data_saida.value).getFullYear().toString())
+  // const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/getLast?cliente_cod=' + codigo + '&data_saida=' + new Date(declaracao_data_saida.value).toString());
   const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/getLast?cliente_cod=' + codigo + '&data_saida=' + new Date(declaracao_data_saida.value).toString());
   console.log('~fetch: ' + lastDecClienteResponse.data[0])
   // const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/getLastCliente?cliente_codigo=' + codigo)

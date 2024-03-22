@@ -67,7 +67,7 @@
   </v-alert>
 
   <v-snackbar v-model="limparFiltrosSnackbar" color="green-lighten-1" :timeout="1750">
-    Os filtros foram desativados.
+    Os filtros foram desativados
 
     <template v-slot:actions>
       <v-btn
@@ -82,7 +82,7 @@
   </v-snackbar>
 
   <v-snackbar v-model="ativarFiltrosSnackbar" color="green-lighten-1" :timeout="1750">
-    Os filtros foram ativados.
+    Os filtros foram ativados
 
     <template v-slot:actions>
       <v-btn
@@ -97,7 +97,7 @@
   </v-snackbar>
 
   <v-snackbar v-model="dadosParaCancelarSnackbar" color="green-lighten-1" :timeout="2250">
-    Dados da declaração copiados para a área de transferência.
+    Dados da declaração copiados para a área de transferência
 
     <template v-slot:actions>
       <v-btn
@@ -110,10 +110,26 @@
       </v-btn>
     </template>
   </v-snackbar>
+  
+  <v-snackbar v-model="cancelamentoDeclaracaoSnackbar" color="green-lighten-1" :timeout="2250">
+    Declaração cancelada com sucesso
 
-  <v-dialog v-model="detalhes_declaracao_dialog" max-width="540">
+    <template v-slot:actions>
+      <v-btn
+        color="white"
+        variant="text"
+        @click="cancelamentoDeclaracaoSnackbar = false"
+        prepend-icon="mdi-close"
+      >
+        
+      </v-btn>
+    </template>
+  </v-snackbar>
+
+  <v-dialog v-model="detalhes_declaracao_dialog" max-width="540" >
       
     <v-card title="Detalhes da Declaração" class="text-body-2">
+      <!-- <v-card-title class="px-6 py-3">Detalhes da Declaração</v-card-title> -->
       <v-card-text>
         
         <!-- <v-row >
@@ -157,7 +173,7 @@
           </v-col>
         </v-row>
         
-        <v-row v-if="detalhes_declaracao.status">
+        <v-row>
           <v-col cols="12" sm="2" md="4" lg="4" class="font-weight-bold">
             Volume (m³)
           </v-col>
@@ -166,30 +182,117 @@
           </v-col>
         </v-row>
         
-        <v-row class="mb-2">
+        <v-row>
           <v-col  cols="12" sm="2" md="4" lg="4" class="font-weight-bold">
             Status
           </v-col>
           <v-col>
-            {{ detalhes_declaracao.status }}
+            <v-chip 
+              variant="tonal" 
+              class="ma-0 mr-3"
+              :color="detalhes_declaracao.status == 'Cancelada' ? 'red' : 'green'"
+              >
+              {{ detalhes_declaracao.status }}
+            </v-chip>
+            <span 
+              v-if="detalhes_declaracao.status != 'Cancelada'" 
+              @click="mostrar_dialog_cancelar_declaracao()"
+              style="cursor: pointer"
+              >
+              (Cancelar)
+          </span>
+            <!-- <v-btn 
+              v-if="detalhes_declaracao.status != 'Cancelada'"
+              variant="plain" 
+              @click="mostrar_dialog_cancelar_declaracao()"
+              size="small">
+              Cancelar
+            </v-btn> -->
           </v-col>
         </v-row>
         
-        <v-btn 
-          append-icon="mdi-file-pdf-box"
-          text="PDF"
-          color="red"
-          variant="outlined"
-          class="mb-1"
-          @click="gerar_pdf()">
-        </v-btn>
+        <v-row v-if="detalhes_declaracao.status != 'Cancelada'">
+          <v-col  cols="12" sm="2" md="4" lg="4" class="font-weight-bold">
+            PDF
+          </v-col>
+          <v-col>
+            <span 
+              @click="gerar_pdf()"
+              style="cursor: pointer"
+              >Gerar PDF</span>
+            <!-- <v-btn 
+              v-if="detalhes_declaracao.status != 'Cancelada'"
+              variant="plain" 
+              @click="gerar_pdf()"
+              size="small"
+              >
+                Gerar PDF
+              </v-btn> -->
+          </v-col>
+        </v-row>
+        
+        <v-row v-if="detalhes_declaracao.status == 'Cancelada' && detalhes_declaracao.motivo_cancelamento">
+          <v-col  cols="12" sm="2" md="4" lg="4" class="font-weight-bold">
+            Motivo do cancelamento
+          </v-col>
+          <v-col>
+            {{ detalhes_declaracao.motivo_cancelamento }}
+          </v-col>
+        </v-row>
+        <!-- <v-row>
+          <v-col>
+            <v-btn
+              v-if="detalhes_declaracao.status != 'Cancelada'"
+              text="Gerar PDF"
+              prepend-icon="mdi-file-pdf-box"
+              variant="text"
+              class="mb-0"
+              @click="gerar_pdf()">
+            </v-btn>
+          </v-col>
+        </v-row> -->
+        <!-- <v-row>
+            <v-col>
+              <v-btn
+                v-if="detalhes_declaracao.status != 'Cancelada'"
+                text="Cancelar Declaração"
+                color="red"
+                variant="tonal"
+                class="mb-1"
+                @click="mostrar_dialog_cancelar_declaracao()">
+              </v-btn>
+          </v-col>
+        </v-row> -->
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
         <!-- <v-btn text="Limpar Filtros" variant="plain" @click="limparFiltros()"></v-btn> -->
         <v-spacer></v-spacer>
         <v-btn text="Fechar" variant="plain" @click="detalhes_declaracao_dialog = false"></v-btn>
-        <v-btn v-if="detalhes_declaracao.status != 'Cancelada'" text="Cancelar Declaração" color="red" variant="tonal" @click="cancelar_declaracao(id_declaracao_clicada)"></v-btn>
+        <!-- <v-btn v-if="detalhes_declaracao.status != 'Cancelada'" text="Cancelar Declaração" color="red" variant="tonal" @click="mostrar_dialog_cancelar_declaracao()"></v-btn> -->
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
+  <v-dialog v-model="cancelarDeclaracaoDialog" max-width="540">
+    <v-card title="Cancelamento de Declaração" class="text-body-2">
+      <v-card-text>
+        <v-row class="mt-2">
+          <v-col>
+            <p class="text-justify">Você está prestes a cancelar a declaração selecionada. Informe no campo abaixo o motivo do cancelamento e a seguir pressione o botão Cancelar Declaração.</p>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-textarea v-model="motivoCancelamentoDeclaracao" label="Motivo do cancelamento" variant="outlined" no-resize></v-textarea>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text="Fechar" variant="plain" @click="cancelarDeclaracaoDialog = false"></v-btn>
+        <v-btn :disabled="motivoCancelamentoDeclaracao.length <= 10" text="Cancelar Declaração" color="red" variant="tonal" @click="cancelar_declaracao(id_declaracao_clicada)"></v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -248,6 +351,19 @@
           </v-autocomplete>
         </v-col>
       </v-row>
+      <v-row dense>  
+        <v-col cols="12" sm="5" md="5" lg="5">
+          <v-autocomplete 
+            v-model="filter_dialog_status_interno"
+            :items="['Gerada','Cancelada']" 
+            label="Status"
+            variant="outlined"
+            auto-select-first
+            clearable
+          >
+          </v-autocomplete>
+        </v-col>
+      </v-row>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
@@ -259,7 +375,7 @@
     </v-card>
   </v-dialog>
   
-  <v-dialog v-model="cancelarDeclaracaoDialog" max-width="640">
+  <!-- <v-dialog v-model="cancelarDeclaracaoDialog" max-width="640">
     <v-card title="Cancelar Declaração">
       <v-card-text class="pb-6">
         Para cancelar esta declaração, entre em contato com: <br/><v-divider class="mb-3"></v-divider><span class="font-weight-bold">Roberto Cabral</span> <br/> rcabral@gasverde.com.br <br/> (21) 9 7581 8889
@@ -270,7 +386,7 @@
         <v-btn prepend-icon="mdi-content-copy" variant="tonal" text="Copiar Dados" @click="copiarDadosDeclaracaoMemoria()"></v-btn>
       </v-card-actions>
     </v-card>
-  </v-dialog>
+  </v-dialog> -->
 
   <!-- <v-data-table-virtual 
     height="480"
@@ -306,7 +422,205 @@ import { ref, computed } from 'vue';
 import axios from 'axios';
 import criarPDF from '~/assets/criar_pdf';
 
+const dados_placas_carretas_mongodb = ref();
+
+const dados_declaracoes = ref();
+const dados_clientes = ref()
+const dados_clientes_mongodb = ref();
+const lista_clientes_apelido = ref([]);
+const lista_placa_carreta = ref();
+
+const detalhes_declaracao = ref();
+const detalhes_declaracao_dialog = ref(false);
+const id_declaracao_clicada = ref('');
+const motivoCancelamentoDeclaracao = ref('')
+
+const filter_dialog = ref(false);
+const filter_dialog_cliente = ref();
+const filter_dialog_cliente_interno = ref();
+const filter_dialog_data_saida_inicio = ref();
+const filter_dialog_data_saida_inicio_interno = ref();
+const filter_dialog_data_saida_fim = ref();
+const filter_dialog_data_saida_fim_interno = ref();
+const filter_dialog_placa_carreta = ref();
+const filter_dialog_placa_carreta_interno = ref();
+const filter_dialog_status_interno = ref();
+const filter_dialog_status = ref();
+
+const existe_filtro = computed(() => {
+  if(
+    filter_dialog_cliente.value != undefined || 
+    filter_dialog_data_saida_inicio.value != undefined || 
+    filter_dialog_placa_carreta.value != undefined ||
+    filter_dialog_status.value != undefined)
+    {
+    return true
+  }
+})
+
+const limparFiltrosSnackbar = ref(false);
+const ativarFiltrosSnackbar = ref(false);
+const dadosParaCancelarSnackbar = ref(false);
+const cancelamentoDeclaracaoSnackbar = ref(false);
+
 const cancelarDeclaracaoDialog = ref(false);
+
+const ippo = [
+  {value: 10, title: '10'},
+  {value: 25, title: '25'},
+  {value: 50, title: '50'},
+  {value: 100, title: '100'},
+  {value: -1, title: 'Todos'}
+]
+
+const items_breadcrumbs = ref([])
+items_breadcrumbs.value = [
+  {
+    title: "Início",
+    href: "/"
+  },
+  {
+    title: "Central de Operações",
+    href: "/central_operacoes/"
+  },
+  {
+    title: "Declarações",
+    href: "/cenral_operacoes/declaracoes/"
+  },
+]
+
+const headers = ref();
+headers.value = [
+  // {title: 'Data Saída', align: 'start', key: 'data_saida', sortable: false},
+  // {title: 'Data Reg.', align: 'start', key: 'meta_data_reg_declaracao', sortable: false},
+  {title: 'Data Saída', align: 'start', key: 'data_saida', sortable: false},
+  {title: 'Placa Carreta', align: 'start', key: 'placa_carreta', sortable: false},
+  {title: 'Núm.', align: 'start', key: 'num', sortable: false},
+  {title: 'Cliente', align: 'start', key: 'cliente', sortable: false},
+  // {title: 'Produto', align: 'start', key: 'produto_descricao', sortable: false},
+  {title: 'Volume (m³)', align: 'end', key: 'produto_quantidade', sortable: false},
+  {title: 'Status', align: 'end', key: 'status', sortable: false},
+]
+// ========================================================
+
+onMounted(async () => {
+  await getClientes();
+  await getDeclaracoes();
+  // console.log(dados_declaracoes.value);
+  // await fetchClientes();
+  fn_preencher_lista_clientes_apelido();
+
+  await fetchPlacasCarretas();
+  lista_placa_carreta.value = dados_placas_carretas_mongodb.value.map(e => e.placa_carreta)
+})
+
+async function getDeclaracoes() {
+  if(
+    filter_dialog_cliente_interno.value != undefined || 
+    filter_dialog_data_saida_inicio_interno.value != undefined ||
+    filter_dialog_placa_carreta_interno.value != undefined ||
+    filter_dialog_status_interno.value != undefined
+    ) {
+      ativarFiltrosSnackbar.value = true;
+    } else {
+      ativarFiltrosSnackbar.value = false;
+    }
+
+  // console.log("filter_dialog_cliente_interno.value: " + filter_dialog_cliente_interno.value)
+  let declaracoesResponse;
+  let url_params = '';
+  
+  if(
+    filter_dialog_cliente_interno.value != undefined || 
+    filter_dialog_data_saida_inicio_interno.value != undefined || 
+    filter_dialog_data_saida_fim_interno.value != undefined || 
+    filter_dialog_placa_carreta_interno.value != undefined ||
+    filter_dialog_status_interno.value != undefined
+  ) {
+    url_params += '?';
+  }
+
+  if(
+    filter_dialog_cliente_interno.value != undefined && 
+    filter_dialog_cliente_interno.value != null
+    ) {
+    // A
+    filter_dialog_cliente.value = filter_dialog_cliente_interno.value
+    url_params += '&cliente_cod=' + filter_dialog_cliente.value;
+  }
+  if (
+    filter_dialog_data_saida_inicio_interno.value != undefined && 
+    filter_dialog_data_saida_inicio_interno.value != null &&
+    filter_dialog_data_saida_inicio_interno.value != '' && 
+    filter_dialog_data_saida_fim_interno.value != undefined && 
+    filter_dialog_data_saida_fim_interno.value != null && 
+    filter_dialog_data_saida_fim_interno.value != '' 
+  ) {
+    // B
+    filter_dialog_data_saida_inicio.value = filter_dialog_data_saida_inicio_interno.value
+    filter_dialog_data_saida_fim.value = filter_dialog_data_saida_fim_interno.value
+    url_params += '&data_saida_inicio=' + filter_dialog_data_saida_inicio.value + '&data_saida_fim=' + filter_dialog_data_saida_fim.value;
+  }
+  if (
+    filter_dialog_placa_carreta_interno.value != undefined && 
+    filter_dialog_placa_carreta_interno.value != null
+  ) {
+    // C
+    filter_dialog_placa_carreta.value = filter_dialog_placa_carreta_interno.value;
+    url_params += '&placa_carreta=' + filter_dialog_placa_carreta.value
+  } 
+  if (
+    filter_dialog_status_interno.value != undefined && 
+    filter_dialog_status_interno.value != null
+  ) {
+    // D
+    filter_dialog_status.value = filter_dialog_status_interno.value;
+    url_params += '&status=' + filter_dialog_status.value
+  } 
+
+  // declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/get' + url_params)
+  declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/get' + url_params)
+    .then(async res => {
+      if(res.status == 200) {
+        console.log("Declarações obtidas com sucesso!");
+        return res;
+      } else {
+        console.log("Algum erro ocorreu na hora de obter as declarações.")
+        reloadNuxtApp();
+      }
+    })
+  // declaracoesResponse.data.forEach(e => console.log(e))
+  dados_declaracoes.value = declaracoesResponse.data;
+  
+  dados_declaracoes.value = dados_declaracoes.value.map((e) => {
+    return {
+      ...e,
+      data_saida: DateToString(new Date(e.data_saida.$date)),
+      meta_data_reg_declaracao: DateToString(new Date(e.meta.data_reg_declaracao.$date)),
+      num: siglaEmprAtende(e.num.empresa_atende) + "-" + e.num.cliente_sigla + "-" + e.num.seq.toString().padStart(3,'0') + "/" + e.num.mes.toString().padStart(2, '0') + "-" + e.num.ano.toString().padStart(4, '0'),
+      produto_descricao: string_capitalize(dados_produto.value.find(b => {
+        return (b.produto_cod == e.produto_codigo) || e.produto_codigo != undefined
+      }).produto_descricao),
+      cliente: dados_clientes.value.find(cliente => {
+        return cliente.meta.cliente_cod == e.cliente_cod
+      }).meta.apelido
+    }
+  })
+
+  if(filter_dialog.value = true) {
+    filter_dialog.value = false
+  }
+}
+
+async function getClientes() {
+  const clientesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Clientes/getAll');
+  dados_clientes.value = clientesResponse.data;
+}
+
+async function fetchPlacasCarretas() {
+  const placasResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/placas_carretas')
+  dados_placas_carretas_mongodb.value = placasResponse.data;
+}
 
 function copiarDadosDeclaracaoMemoria() {
   let foo = dados_clientes.value.find(e => {
@@ -396,26 +710,36 @@ function gerar_pdf() {
   criarPDF(dados_para_pdf);
 }
 
-function gerarNumDeclaracao(num) {
-  let empresa_sigla;
-  if(num.empresa_atende == "urca_gas") {
-    empresa_sigla = "UG"
-  } else if(num.empresa_atende == "gas_verde") {
-    empresa_sigla = "GV"
-  }
-  // console.log(num)
-  return empresa_sigla + "-" + num.cliente_sigla + "-" + num.seq.toString().padStart("0", 3) + "/" + num.mes.toString().padStart("0", 2) + num.ano.toString().padStart("0", 4)
+function mostrar_dialog_cancelar_declaracao() {
+  cancelarDeclaracaoDialog.value = true;
+  motivoCancelamentoDeclaracao.value = ''
 }
 
 async function cancelar_declaracao(id) {
+  // await axios.put('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/update?id=' + id + '&status=Cancelada' + '&motivo_cancelamento=' + motivoCancelamentoDeclaracao.value).then(async res => {
+  await axios.put('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/update?id=' + id + '&status=Cancelada' + '&motivo_cancelamento=' + motivoCancelamentoDeclaracao.value).then(async res => {
+    // console.log(res.status)
+    if(res.status == 200) {
+      console.log("Declaração cancelada com sucesso!")
+      cancelamentoDeclaracaoSnackbar.value = true;
+      cancelarDeclaracaoDialog.value = false;
+      detalhes_declaracao_dialog.value = false;      
+      await getDeclaracoes();
+      
+      detalhes_declaracao.value = dados_declaracoes.value.find(e => {return e._id == id})
+      detalhes_declaracao_dialog.value = true
+    } else {
+      console.log(res.status)
+      alert('A declaração não foi cancelada.')
+      // reloadNuxtApp();
+    }
+  })
   // alert(id)
-  // const cancelarDeclaracaoResponse = axios.patch('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/update?id=' + id + '&status=Cancelada')
 
-  // const cancelarDeclaracaoResponse = await $fetch('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/update', {
   //   method: 'PATCH',
   //   query: {'id': id, status: 'Cancelada'},
   // })
-  cancelarDeclaracaoDialog.value = true
+  // cancelarDeclaracaoDialog.value = true
 }
 
 function fn_mostrar_detalhes_declaracao(event, row) {
@@ -427,147 +751,12 @@ function fn_mostrar_detalhes_declaracao(event, row) {
   detalhes_declaracao.value = dados_declaracoes.value.find(e => {return e._id == id_declaracao_clicada.value})
 }
 
-const ippo = [
-  {value: 10, title: '10'},
-  {value: 25, title: '25'},
-  {value: 50, title: '50'},
-  {value: 100, title: '100'},
-  {value: -1, title: 'Todos'}
-]
-
-const dados_placas_carretas_mongodb = ref();
-
-const dados_declaracoes = ref();
-const dados_clientes = ref()
-const headers = ref();
-const dados_clientes_mongodb = ref();
-const lista_clientes_apelido = ref([]);
-const lista_placa_carreta = ref();
-
-const detalhes_declaracao = ref();
-const detalhes_declaracao_dialog = ref(false);
-const id_declaracao_clicada = ref('');
-
-const filter_dialog = ref(false);
-const filter_dialog_cliente = ref();
-const filter_dialog_cliente_interno = ref();
-const filter_dialog_data_saida_inicio = ref();
-const filter_dialog_data_saida_inicio_interno = ref();
-const filter_dialog_data_saida_fim = ref();
-const filter_dialog_data_saida_fim_interno = ref();
-const filter_dialog_placa_carreta = ref();
-const filter_dialog_placa_carreta_interno = ref();
-const existe_filtro = computed(() => {
-  if(
-    filter_dialog_cliente.value != undefined || 
-    filter_dialog_data_saida_inicio.value != undefined || 
-    filter_dialog_placa_carreta.value != undefined) 
-    {
-    return true
-  }
-})
-
-const limparFiltrosSnackbar = ref(false);
-const ativarFiltrosSnackbar = ref(false);
-const dadosParaCancelarSnackbar = ref(false);
-
-const filtrosAtivos = ref();
-// const filtrosAtivos = computed(() => {
-//   // const array = [filter_dialog_cliente, filter_dialog_data_saida_inicio, filter_dialog_placa_carreta];
-//   const array = [
-//     {
-//       nome: 'Cliente',
-//       filtro: filter_dialog_cliente.value
-//     },
-//     {
-//       nome: 'Data de Sáida',
-//       filtro: filter_dialog_data_saida_inicio.value
-//     },
-//     {
-//       nome: 'Placa da Carreta',
-//       filtro: filter_dialog_placa_carreta.value
-//     },
-//   ]
-//   console.log(array)
-//   // return array.map(e => e.value != undefined)
-//   return array.map(e => {
-//     console.log(e.filtro == undefined)
-//     if(e.filtro != undefined) {
-//       return e
-//     } else {
-//       return {nome: null, filtro: undefined}
-//     }
-//   })
-// })
-
-
-async function fetchClientes() {
-  const clientesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Clientes/getAll');
-  dados_clientes_mongodb.value = clientesResponse.data;
-}
-
-async function fetchPlacasCarretas() {
-  const placasResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/placas_carretas')
-  dados_placas_carretas_mongodb.value = placasResponse.data;
-}
-
 const dados_produto = ref([
   {
     'produto_cod': '27112100',
     'produto_descricao': 'Biometano, ONU 1971, METANO COMPRIMIDO, 2.1' 
   }
 ])
-
-const items_breadcrumbs = ref([])
-items_breadcrumbs.value = [
-  {
-    title: "Início",
-    href: "/"
-  },
-  {
-    title: "Central de Operações",
-    href: "/central_operacoes/"
-  },
-  {
-    title: "Declarações",
-    href: "/cenral_operacoes/declaracoes/"
-  },
-]
-
-onMounted(async () => {
-  await getClientes();
-  await getDeclaracoes();
-  // console.log(dados_declaracoes.value);
-  await fetchClientes();
-  fn_preencher_lista_clientes_apelido();
-
-  await fetchPlacasCarretas();
-  lista_placa_carreta.value = dados_placas_carretas_mongodb.value.map(e => e.placa_carreta)
-})
-
-headers.value = [
-  // {title: 'Data Saída', align: 'start', key: 'data_saida', sortable: false},
-  // {title: 'Data Reg.', align: 'start', key: 'meta_data_reg_declaracao', sortable: false},
-  {title: 'Data Saída', align: 'start', key: 'data_saida', sortable: false},
-  {title: 'Placa Carreta', align: 'start', key: 'placa_carreta', sortable: false},
-  {title: 'Núm.', align: 'start', key: 'num', sortable: false},
-  {title: 'Cliente', align: 'start', key: 'cliente', sortable: false},
-  // {title: 'Produto', align: 'start', key: 'produto_descricao', sortable: false},
-  {title: 'Volume (m³)', align: 'end', key: 'produto_quantidade', sortable: false},
-  {title: 'Status', align: 'end', key: 'status', sortable: false},
-]
-
-// function get_descricao_produto(cod) {
-//   console.log("cod: " + cod)
-//   return dados_produto.value.find(b => {
-//     return b.produto_cod == cod
-//   }).produto_descricao
-// }
-
-async function getClientes() {
-  const clientesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Clientes/getAll');
-  dados_clientes.value = clientesResponse.data;
-}
 
 function siglaEmprAtende(emp_at) {
   if(emp_at == "urca_gas") {
@@ -577,83 +766,7 @@ function siglaEmprAtende(emp_at) {
   }
 }
 
-async function getDeclaracoes() {
-  if(
-    filter_dialog_cliente_interno.value != undefined || 
-    filter_dialog_data_saida_inicio_interno.value != undefined ||
-    filter_dialog_placa_carreta_interno.value != undefined
-    ) {
-      ativarFiltrosSnackbar.value = true;
-    } else {
-      ativarFiltrosSnackbar.value = false;
-    }
 
-  // console.log("filter_dialog_cliente_interno.value: " + filter_dialog_cliente_interno.value)
-  let declaracoesResponse;
-  let url_params = '';
-  
-  if(
-    filter_dialog_cliente_interno.value != undefined || 
-    filter_dialog_data_saida_inicio_interno.value != undefined || 
-    filter_dialog_data_saida_fim_interno.value != undefined || 
-    filter_dialog_placa_carreta_interno.value != undefined
-  ) {
-    url_params += '?';
-  }
-
-  if(
-    filter_dialog_cliente_interno.value != undefined && 
-    filter_dialog_cliente_interno.value != null
-    ) {
-    // A
-    filter_dialog_cliente.value = filter_dialog_cliente_interno.value
-    url_params += '&cliente_cod=' + filter_dialog_cliente.value;
-  }
-  if (
-    filter_dialog_data_saida_inicio_interno.value != undefined && 
-    filter_dialog_data_saida_inicio_interno.value != null &&
-    filter_dialog_data_saida_inicio_interno.value != '' && 
-    filter_dialog_data_saida_fim_interno.value != undefined && 
-    filter_dialog_data_saida_fim_interno.value != null && 
-    filter_dialog_data_saida_fim_interno.value != '' 
-  ) {
-    // B
-    filter_dialog_data_saida_inicio.value = filter_dialog_data_saida_inicio_interno.value
-    filter_dialog_data_saida_fim.value = filter_dialog_data_saida_fim_interno.value
-    url_params += '&data_saida_inicio=' + filter_dialog_data_saida_inicio.value + '&data_saida_fim=' + filter_dialog_data_saida_fim.value;
-  }
-  if (
-    filter_dialog_placa_carreta_interno.value != undefined && 
-    filter_dialog_placa_carreta_interno.value != null
-  ) {
-    // C
-    filter_dialog_placa_carreta.value = filter_dialog_placa_carreta_interno.value;
-    url_params += '&placa_carreta=' + filter_dialog_placa_carreta.value
-  } 
-
-  declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/get' + url_params);
-  // declaracoesResponse.data.forEach(e => console.log(e))
-  dados_declaracoes.value = declaracoesResponse.data;
-  
-  dados_declaracoes.value = dados_declaracoes.value.map((e) => {
-    return {
-      ...e,
-      data_saida: DateToString(new Date(e.data_saida.$date)),
-      meta_data_reg_declaracao: DateToString(new Date(e.meta.data_reg_declaracao.$date)),
-      num: siglaEmprAtende(e.num.empresa_atende) + "-" + e.num.cliente_sigla + "-" + e.num.seq.toString().padStart(3,'0') + "/" + e.num.mes.toString().padStart(2, '0') + "-" + e.num.ano.toString().padStart(4, '0'),
-      produto_descricao: string_capitalize(dados_produto.value.find(b => {
-        return (b.produto_cod == e.produto_codigo) || e.produto_codigo != undefined
-      }).produto_descricao),
-      cliente: dados_clientes.value.find(cliente => {
-        return cliente.meta.cliente_cod == e.cliente_cod
-      }).meta.apelido
-    }
-  })
-
-  if(filter_dialog.value = true) {
-    filter_dialog.value = false
-  }
-}
 
 function string_capitalize(umaString) {
   return umaString[0].toUpperCase() + umaString.slice(1)
@@ -669,7 +782,8 @@ function DateToString(date) {
 
 function fn_preencher_lista_clientes_apelido() {
   var arrayTemp = [];
-  dados_clientes_mongodb.value.forEach(obj => {
+  // dados_clientes_mongodb.value.forEach(obj => {
+  dados_clientes.value.forEach(obj => {
       const partialObj = {};
       partialObj.title = obj.meta.apelido;
       partialObj.value = obj.meta.cliente_cod;
@@ -693,19 +807,17 @@ function limparFiltros() {
   filter_dialog_data_saida_fim_interno.value = null
   filter_dialog_placa_carreta.value = null
   filter_dialog_placa_carreta_interno.value = null
+  filter_dialog_status.value = null
+  filter_dialog_status_interno.value = null
 
   getDeclaracoes();
 
   limparFiltrosSnackbar.value = true;
 }
 
-
-
-
 function fn_teste_mostrar_data_saida() {
   console.log("fn_teste_mostrar_data_saida: " + filter_dialog_data_saida_inicio_interno.value)
 }
-
 </script>
 
 <style>
