@@ -305,6 +305,7 @@
 import { ref, computed } from 'vue';
 import axios from 'axios';
 import criarPDF from '~/assets/criar_pdf';
+import CORS_patch from '~/assets/CORS_patch';
 
 const cancelarDeclaracaoDialog = ref(false);
 
@@ -408,14 +409,15 @@ function gerarNumDeclaracao(num) {
 }
 
 async function cancelar_declaracao(id) {
+  CORS_patch(id);
   // alert(id)
-  // const cancelarDeclaracaoResponse = axios.patch('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/update?id=' + id + '&status=Cancelada')
+  // const cancelarDeclaracaoResponse = axios.patch('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/update?id=' + id + '&status=Cancelada')
 
-  // const cancelarDeclaracaoResponse = await $fetch('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/update', {
+  // const cancelarDeclaracaoResponse = await $fetch('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/update', {
   //   method: 'PATCH',
   //   query: {'id': id, status: 'Cancelada'},
   // })
-  cancelarDeclaracaoDialog.value = true
+  // cancelarDeclaracaoDialog.value = true
 }
 
 function fn_mostrar_detalhes_declaracao(event, row) {
@@ -631,7 +633,7 @@ async function getDeclaracoes() {
     url_params += '&placa_carreta=' + filter_dialog_placa_carreta.value
   } 
 
-  declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/get' + url_params);
+  declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/get' + url_params);
   // declaracoesResponse.data.forEach(e => console.log(e))
   dados_declaracoes.value = declaracoesResponse.data;
   
