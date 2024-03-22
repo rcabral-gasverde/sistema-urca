@@ -194,12 +194,20 @@
               >
               {{ detalhes_declaracao.status }}
             </v-chip>
-            <v-btn 
-              v-if="detalhes_declaracao.status != 'Cancelada'"
-              variant="text" 
-              color="red" 
+            <span 
+              v-if="detalhes_declaracao.status != 'Cancelada'" 
               @click="mostrar_dialog_cancelar_declaracao()"
-              size="small">Cancelar</v-btn>
+              style="cursor: pointer"
+              >
+              (Cancelar)
+          </span>
+            <!-- <v-btn 
+              v-if="detalhes_declaracao.status != 'Cancelada'"
+              variant="plain" 
+              @click="mostrar_dialog_cancelar_declaracao()"
+              size="small">
+              Cancelar
+            </v-btn> -->
           </v-col>
         </v-row>
         
@@ -208,18 +216,22 @@
             PDF
           </v-col>
           <v-col>
-            <v-btn 
+            <span 
+              @click="gerar_pdf()"
+              style="cursor: pointer"
+              >Gerar PDF</span>
+            <!-- <v-btn 
               v-if="detalhes_declaracao.status != 'Cancelada'"
-              variant="text" 
+              variant="plain" 
               @click="gerar_pdf()"
               size="small"
-              prepend-icon="mdi-file-pdf-box">
+              >
                 Gerar PDF
-              </v-btn>
+              </v-btn> -->
           </v-col>
         </v-row>
         
-        <v-row v-if="detalhes_declaracao.status == 'Cancelada'">
+        <v-row v-if="detalhes_declaracao.status == 'Cancelada' && detalhes_declaracao.motivo_cancelamento">
           <v-col  cols="12" sm="2" md="4" lg="4" class="font-weight-bold">
             Motivo do cancelamento
           </v-col>
@@ -339,6 +351,19 @@
           </v-autocomplete>
         </v-col>
       </v-row>
+      <v-row dense>  
+        <v-col cols="12" sm="5" md="5" lg="5">
+          <v-autocomplete 
+            v-model="filter_dialog_status_interno"
+            :items="['Gerada','Cancelada']" 
+            label="Status"
+            variant="outlined"
+            auto-select-first
+            clearable
+          >
+          </v-autocomplete>
+        </v-col>
+      </v-row>
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
@@ -419,11 +444,15 @@ const filter_dialog_data_saida_fim = ref();
 const filter_dialog_data_saida_fim_interno = ref();
 const filter_dialog_placa_carreta = ref();
 const filter_dialog_placa_carreta_interno = ref();
+const filter_dialog_status_interno = ref();
+const filter_dialog_status = ref();
+
 const existe_filtro = computed(() => {
   if(
     filter_dialog_cliente.value != undefined || 
     filter_dialog_data_saida_inicio.value != undefined || 
-    filter_dialog_placa_carreta.value != undefined) 
+    filter_dialog_placa_carreta.value != undefined ||
+    filter_dialog_status.value != undefined)
     {
     return true
   }
@@ -489,7 +518,8 @@ async function getDeclaracoes() {
   if(
     filter_dialog_cliente_interno.value != undefined || 
     filter_dialog_data_saida_inicio_interno.value != undefined ||
-    filter_dialog_placa_carreta_interno.value != undefined
+    filter_dialog_placa_carreta_interno.value != undefined ||
+    filter_dialog_status_interno.value != undefined
     ) {
       ativarFiltrosSnackbar.value = true;
     } else {
@@ -504,7 +534,8 @@ async function getDeclaracoes() {
     filter_dialog_cliente_interno.value != undefined || 
     filter_dialog_data_saida_inicio_interno.value != undefined || 
     filter_dialog_data_saida_fim_interno.value != undefined || 
-    filter_dialog_placa_carreta_interno.value != undefined
+    filter_dialog_placa_carreta_interno.value != undefined ||
+    filter_dialog_status_interno.value != undefined
   ) {
     url_params += '?';
   }
@@ -538,8 +569,17 @@ async function getDeclaracoes() {
     filter_dialog_placa_carreta.value = filter_dialog_placa_carreta_interno.value;
     url_params += '&placa_carreta=' + filter_dialog_placa_carreta.value
   } 
+  if (
+    filter_dialog_status_interno.value != undefined && 
+    filter_dialog_status_interno.value != null
+  ) {
+    // D
+    filter_dialog_status.value = filter_dialog_status_interno.value;
+    url_params += '&status=' + filter_dialog_status.value
+  } 
 
-  declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/get' + url_params)
+  // declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/get' + url_params)
+  declaracoesResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/get' + url_params)
     .then(async res => {
       if(res.status == 200) {
         console.log("Declarações obtidas com sucesso!");
@@ -676,7 +716,8 @@ function mostrar_dialog_cancelar_declaracao() {
 }
 
 async function cancelar_declaracao(id) {
-  await axios.put('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/update?id=' + id + '&status=Cancelada' + '&motivo_cancelamento=' + motivoCancelamentoDeclaracao.value).then(async res => {
+  // await axios.put('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/update?id=' + id + '&status=Cancelada' + '&motivo_cancelamento=' + motivoCancelamentoDeclaracao.value).then(async res => {
+  await axios.put('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/update?id=' + id + '&status=Cancelada' + '&motivo_cancelamento=' + motivoCancelamentoDeclaracao.value).then(async res => {
     // console.log(res.status)
     if(res.status == 200) {
       console.log("Declaração cancelada com sucesso!")
@@ -694,9 +735,7 @@ async function cancelar_declaracao(id) {
     }
   })
   // alert(id)
-  // const cancelarDeclaracaoResponse = axios.patch('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/update?id=' + id + '&status=Cancelada')
 
-  // const cancelarDeclaracaoResponse = await $fetch('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/update', {
   //   method: 'PATCH',
   //   query: {'id': id, status: 'Cancelada'},
   // })
@@ -768,6 +807,8 @@ function limparFiltros() {
   filter_dialog_data_saida_fim_interno.value = null
   filter_dialog_placa_carreta.value = null
   filter_dialog_placa_carreta_interno.value = null
+  filter_dialog_status.value = null
+  filter_dialog_status_interno.value = null
 
   getDeclaracoes();
 
