@@ -41,7 +41,7 @@
       </v-col>
     </v-row> -->
 
-    <v-alert 
+    <!-- <v-alert 
       border="start"
       border-color="white"
       
@@ -50,10 +50,7 @@
       
       >
       <span class="text-overline font-weight-bold">Atenção:</span> <span class="text-body-2">O formulário abaixo é apenas para fins de demonstração e desenvolvimento! Se o usuário registrar a entrada de carreta, isto não gerará nenhum probema.</span>
-      <!-- <v-chip v-for="i in filtrosAtivos">
-        {{i.nome}}
-      </v-chip> -->
-    </v-alert>
+    </v-alert> -->
 
     <v-row>
       <v-col cols="12" sm="12" md="12" lg="8">
@@ -486,7 +483,7 @@ function fn_registrar_entrada() {
     'placa_cavalo_entrada': placa_cavalo_entrada.value,
     'motorista_entrada': motorista_entrada.value,
     'observacoes_entrada': observacoes_entrada.value,
-    'status': 'Entrou na Base',
+    'status': 'entrou_na_base',
     'meta': {
       'data_reg_entrada': {'$date': new Date()},
       'usuario_reg_entrada': 'rcabral@gasverde.com.br'
