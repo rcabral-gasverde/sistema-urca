@@ -26,7 +26,8 @@ export default defineNuxtConfig({
     },
     //...
     'nuxt-pdfmake',
-    // 'nuxt-security'
+    // 'nuxt-security',
+    'nuxt3-leaflet'
   ],
   vite: {
     define: {

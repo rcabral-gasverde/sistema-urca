@@ -21,6 +21,7 @@
     "@nuxtjs/date-fns": "^1.5.0",
     "nuxt-pdfmake": "^0.0.16",
     "nuxt-security": "^1.2.2",
+    "nuxt3-leaflet": "^1.0.12",
     "sass": "^1.71.1",
     "vite-plugin-vuetify": "^2.0.3",
     "vuetify": "^3.5.8"
