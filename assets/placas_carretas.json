@@ -1,143 +1,190 @@
 [
     {
-        "placa_carreta": "CZB 1232"
+        "placa_carreta": "CZB 1232",
+        "status": ""
     },
     {
-        "placa_carreta": "CZB 1238"
+        "placa_carreta": "CZB 1238",
+        "status": ""
     },
     {
-        "placa_carreta": "DDQ 9453"
+        "placa_carreta": "DDQ 9453",
+        "status": ""
     },
     {
-        "placa_carreta": "KNO 3338"
+        "placa_carreta": "KNO 3338",
+        "status": ""
     },
     {
-        "placa_carreta": "KRO 0377"
+        "placa_carreta": "KRO 0377",
+        "status": ""
     },
     {
-        "placa_carreta": "KVP 8490"
+        "placa_carreta": "KVP 8490",
+        "status": ""
     },
     {
-        "placa_carreta": "KZO 8G13"
+        "placa_carreta": "KZO 8G13",
+        "status": ""
     },
     {
-        "placa_carreta": "KZO 8G14"
+        "placa_carreta": "KZO 8G14",
+        "status": ""
     },
     {
-        "placa_carreta": "KZU 1274"
+        "placa_carreta": "KZU 1274",
+        "status": ""
     },
     {
-        "placa_carreta": "KZZ 0H73"
+        "placa_carreta": "KZZ 0H73",
+        "status": ""
     },
     {
-        "placa_carreta": "LMQ 8B94"
+        "placa_carreta": "LMQ 8B94",
+        "status": ""
     },
     {
-        "placa_carreta": "LMZ 7E92"
+        "placa_carreta": "LMZ 7E92",
+        "status": ""
     },
     {
-        "placa_carreta": "LMZ 7E95"
+        "placa_carreta": "LMZ 7E95",
+        "status": ""
     },
     {
-        "placa_carreta": "LMZ 7E97"
+        "placa_carreta": "LMZ 7E97",
+        "status": ""
     },
     {
-        "placa_carreta": "LPF 1402"
+        "placa_carreta": "LPF 1402",
+        "status": ""
     },
     {
-        "placa_carreta": "LPH 1367"
+        "placa_carreta": "LPH 1367",
+        "status": ""
     },
     {
-        "placa_carreta": "LQC 9A66"
+        "placa_carreta": "LQC 9A66",
+        "status": ""
     },
     {
-        "placa_carreta": "LRJ 2I94"
+        "placa_carreta": "LRJ 2I94",
+        "status": ""
     },
     {
-        "placa_carreta": "LSE 1191"
+        "placa_carreta": "LSE 1191",
+        "status": ""
     },
     {
-        "placa_carreta": "LTM 8A98"
+        "placa_carreta": "LTM 8A98",
+        "status": ""
     },
     {
-        "placa_carreta": "LTU 7C69"
+        "placa_carreta": "LTU 7C69",
+        "status": ""
     },
     {
-        "placa_carreta": "LTU 7C71"
+        "placa_carreta": "LTU 7C71",
+        "status": ""
     },
     {
-        "placa_carreta": "LVE 1186"
+        "placa_carreta": "LVE 1186",
+        "status": ""
     },
     {
-        "placa_carreta": "RIZ 6H97"
+        "placa_carreta": "RIZ 6H97",
+        "status": ""
     },
     {
-        "placa_carreta": "RJB 3H64"
+        "placa_carreta": "RJB 3H64",
+        "status": ""
     },
     {
-        "placa_carreta": "RJB 3H65"
+        "placa_carreta": "RJB 3H65",
+        "status": ""
     },
     {
-        "placa_carreta": "RJB 7G77"
+        "placa_carreta": "RJB 7G77",
+        "status": ""
     },
     {
-        "placa_carreta": "RJB 7G78"
+        "placa_carreta": "RJB 7G78",
+        "status": ""
     },
     {
-        "placa_carreta": "RJC 4G62"
+        "placa_carreta": "RJC 4G62",
+        "status": ""
     },
     {
-        "placa_carreta": "RJC 7D78"
+        "placa_carreta": "RJC 7D78",
+        "status": ""
     },
     {
-        "placa_carreta": "RJC 7D79"
+        "placa_carreta": "RJC 7D79",
+        "status": ""
     },
     {
-        "placa_carreta": "RJE 4F92"
+        "placa_carreta": "RJE 4F92",
+        "status": ""
     },
     {
-        "placa_carreta": "RJE 4F93"
+        "placa_carreta": "RJE 4F93",
+        "status": ""
     },
     {
-        "placa_carreta": "RJE 4F95"
+        "placa_carreta": "RJE 4F95",
+        "status": ""
     },
     {
-        "placa_carreta": "RJE 4F96"
+        "placa_carreta": "RJE 4F96",
+        "status": ""
     },
     {
-        "placa_carreta": "RJE 4F97"
+        "placa_carreta": "RJE 4F97",
+        "status": ""
     },
     {
-        "placa_carreta": "RJE 4F98"
+        "placa_carreta": "RJE 4F98",
+        "status": ""
     },
     {
-        "placa_carreta": "RJE 4F99"
+        "placa_carreta": "RJE 4F99",
+        "status": ""
     },
     {
-        "placa_carreta": "RJE 4G00"
+        "placa_carreta": "RJE 4G00",
+        "status": ""
     },
     {
-        "placa_carreta": "RJU 3D77"
+        "placa_carreta": "RJU 3D77",
+        "status": ""
     },
     {
-        "placa_carreta": "RJU 3D86"
+        "placa_carreta": "RJU 3D86",
+        "status": ""
     },
     {
-        "placa_carreta": "RJZ 4A75"
+        "placa_carreta": "RJZ 4A75",
+        "status": ""
     },
     {
-        "placa_carreta": "RJZ 4A76"
+        "placa_carreta": "RJZ 4A76",
+        "status": ""
     },
     {
-        "placa_carreta": "RKG 3I65"
+        "placa_carreta": "RKG 3I65",
+        "status": ""
     },
     {
-        "placa_carreta": "RKT 4E98"
+        "placa_carreta": "RKT 4E98",
+        "status": ""
     },
     {
-        "placa_carreta": "RKT 4E99"
+        "placa_carreta": "RKT 4E99",
+        "status": ""
     },
     {
-        "placa_carreta": "RKT 5G23"
+        "placa_carreta": "RKT 5G23",
+        "status": ""
     }
 ]
