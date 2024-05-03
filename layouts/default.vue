@@ -1,5 +1,5 @@
 <template>
-    <v-app>
+  <v-app>
         <v-layout>
             <!-- <v-app-bar
                 style="position:fixed"
@@ -20,28 +20,28 @@
               elevation="2"
               style="position: fixed"
             >      
-            <v-list nav>
-              <v-list-item class="pa-0 mb-4">
-                <template v-slot:append>
-                  <v-btn
-                    :icon="icon_drawer_rail"
-                    variant="text"
-                    @click.stop="rail = !rail"
-                  ></v-btn>
-                </template>
-              </v-list-item>
-                  <NuxtLink v-for="i in items_drawer" :to="i.route" class="item-menu">
-                    <!-- <v-sheet class="mx-2 my-1 item-menu-sheet"> -->
-                        <v-list-item 
-                          :prepend-icon="i.icon" 
-                          :title="i.text" 
-                          base-color="black" 
-                          elevation="3" 
-                          class="bg-grey-lighten-2 mb-3 pl-2 text-h6 class-teste"
-                        >
-                        </v-list-item>
-                    <!-- </v-sheet> -->
-                  </NuxtLink>
+              <v-list nav>
+                <v-list-item class="pa-0 mb-4">
+                  <template v-slot:append>
+                    <v-btn
+                      :icon="icon_drawer_rail"
+                      variant="text"
+                      @click.stop="rail = !rail"
+                    ></v-btn>
+                  </template>
+                </v-list-item>
+                <NuxtLink v-for="i in items_drawer" :to="i.route" class="item-menu">
+                  <!-- <v-sheet class="mx-2 my-1 item-menu-sheet"> -->
+                      <v-list-item 
+                        :prepend-icon="i.icon" 
+                        :title="i.text" 
+                        base-color="black" 
+                        elevation="3" 
+                        class="bg-grey-lighten-2 mb-3 pl-2 text-h6 class-teste"
+                      >
+                      </v-list-item>
+                  <!-- </v-sheet> -->
+                </NuxtLink>
               </v-list>
             </v-navigation-drawer>
 
@@ -59,13 +59,13 @@
         <!-- <NuxtLink to="/about">About</NuxtLink> -->
         <!-- <div> -->
         <!-- </div> -->
-    </v-app>
+  </v-app>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
 const drawer = ref(true);
-const rail = ref(true);
+const rail = ref(false);
 const items_breadcrumbs = ref();
 const items_drawer = ref();
 

@@ -44,6 +44,11 @@ const cartoes = ref();
 
 cartoes.value = [
   {
+    titulo: "Mapa Interativo",
+    descricao: "Mapa interativo mostrando todos os clientes, plantas e bases de compressão.",
+    href: "/relatorios/mapa_interativo",
+  },
+  {
     titulo: "Volumes Injetados",
     descricao: "Ver volumes injetados por cliente, baixar relatórios consolidados de todos os clientes etc.",
     href: "",
