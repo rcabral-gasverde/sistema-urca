@@ -107,6 +107,10 @@
             nome: 'Escadas Botafogo',
             tipo: 'industria'
         }, {
+            latlng: [-22.73657072396785, -43.618044186334856],
+            nome: 'Saint-Gobain',
+            tipo: 'industria'
+        }, {
             latlng: [-23.043346668010745, -46.70726126637143],
             nome: 'L\'Oréal Jarinu',
             tipo: 'industria'
