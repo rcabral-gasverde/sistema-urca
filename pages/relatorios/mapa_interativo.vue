@@ -12,7 +12,7 @@
             <NuxtLink to="/relatorios/mapa_interativo">Mapa Interativo</NuxtLink>
         </v-breadcrumbs-item>
     </v-breadcrumbs>
-    <div style="height:50vh; width:100vw; position:relative;">
+    <div style="height:50vh; width:80vw;">
       <LMap
         ref="map"
         :zoom="zoom"
