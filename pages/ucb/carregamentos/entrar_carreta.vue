@@ -394,9 +394,9 @@ async function fn_registrar_entrada() {
     'data_entrada': {'$date': data_entrada.value},
     'cliente_retorno': cliente_retorno.value,
     'vaga_entrada': vaga_entrada.value,
-    'mesa_entrada': mesa_entrada.value,
+    // 'mesa_entrada': mesa_entrada.value,
     'vaga': vaga_entrada.value,
-    'mesa': mesa_entrada.value,
+    // 'mesa': mesa_entrada.value,
     'placa_cavalo_entrada': placa_cavalo_entrada.value,
     'motorista_entrada': motorista_entrada.value,
     'observacoes_entrada': observacoes_entrada.value,
@@ -445,7 +445,7 @@ async function fn_post_entrada(dados_para_post) {
     }
   }).catch(error => console.log(error))
 
-  // atualizar collection Vagas (se a vaga for diferente de estoque ou fora_da_vaga)
+  // atualizar collection Vagas (se a vaga for diferente de "estoque" ou "fora_da_vaga")
   if(dados_para_post.vaga != 'estoque' && dados_para_post.vaga != 'fora_da_vaga') {
     await axios.put(
       'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Vagas/update?num=' + dados_para_post.vaga,

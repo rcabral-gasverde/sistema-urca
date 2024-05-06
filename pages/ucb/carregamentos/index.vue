@@ -330,7 +330,8 @@
             </v-row>
           </v-window-item>
           
-          <!-- <v-window-item value="cargas">
+          <!-- 
+          <v-window-item value="cargas">
             <v-table>
               <thead>
                 <tr>
@@ -364,7 +365,8 @@
             </v-table>
           </v-window-item> -->
 
-          <!-- <v-window-item value="cargas_2">
+          <!-- 
+          <v-window-item value="cargas_2">
             <ul v-for="carga in cargas_carregamento">
               <li>
                 Carga: {{ carga.num }}
@@ -385,7 +387,8 @@
             </ul>
           </v-window-item> -->
 
-          <!-- <v-window-item value="cargas_3">
+          <!-- 
+          <v-window-item value="cargas_3">
             <v-data-table
               :headers="cargasHeaders"
               :items="cargas_carregamento"
@@ -603,11 +606,11 @@
   </v-dialog> <!-- Fim do detalhes_carregamento_dialog -->
 
   <!-- REGISTRO ACAO DIALOG -->
-  <v-dialog v-model="registro_acao_dialog" max-width="840" >
+  <!-- <v-dialog v-model="registro_acao_dialog" max-width="840" >
     <v-card :title="registro_acao_dialog_title">
       <v-card-text class="pt-6">
         
-        <!-- <v-row>
+        <v-row>
           <v-col cols="12" lg="3">
             <v-select
               v-model="vaga_origem"
@@ -629,7 +632,7 @@
 
             </v-select>
           </v-col>
-        </v-row> -->
+        </v-row>
         
         <v-row>
           <v-col cols="12" lg="3">
@@ -673,7 +676,7 @@
           </v-col>
         </v-row>
         
-        <!-- <v-row v-if="estagio_carga == 'inicial'"> -->
+        <v-row v-if="estagio_carga == 'inicial'">
         <v-row>
           <v-col cols="12" lg="2">
             <v-select
@@ -683,14 +686,14 @@
               disabled
             >
             </v-select>
-            <!-- <v-select
+            <v-select
               v-model="vaga_carga"
               label="Vaga"
               :items="[1,2,3,4,5,6,7,8,9,10,11,12,13]"
               variant="outlined"
               
             >
-            </v-select> -->
+            </v-select>
           </v-col>
           <v-col cols="12" lg="2">
             <v-select
@@ -776,7 +779,7 @@
         <v-btn @click="fn_registrar_acao()" color="primary" variant="tonal">Registrar</v-btn>
       </v-card-actions>
     </v-card>
-  </v-dialog> <!-- Fim do registro_acao_dialog-->
+  </v-dialog> --> <!-- Fim do registro_acao_dialog-->
 
   <!-- REALOCAR CARRETA DIALOG -->
   <v-dialog v-model="realocar_carreta_dialog" max-width="640">
@@ -814,6 +817,21 @@
             </v-select>
           </v-col>
         </v-row>
+
+        <v-row v-if="mostrarTextHelpersAlerts">
+          <v-col>
+            <v-alert
+              color="blue"
+              density="compact"
+              border="start"
+              variant="outlined"
+              :text="textHelperRegistroCarga"
+              icon="mdi-information"
+            >
+            </v-alert>
+          </v-col>
+        </v-row>
+
       </v-card-text>
 
       <v-divider></v-divider>
@@ -824,10 +842,653 @@
       </v-card-actions>
 
     </v-card>
-  </v-dialog>
+  </v-dialog> <!-- Fim do realocar_carreta_dialog -->
+
+  <!-- INICIAR CARGA DIALOG -->
+  <v-dialog v-model="iniciar_carga_dialog" max-width="840" >
+    <v-card title="Iniciar Carga">
+      <v-card-text class="pt-6">
+        <v-row>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="estagio_carga"
+              label="Estágio da Carga"
+              :items="lista_estagio_carga"
+              variant="outlined"
+              
+              :disabled="estagio_carga_disabled"
+            >
+              <template v-slot:item="{props, item}">
+                <v-list-item
+                  v-bind="props"
+                  :disabled="item.raw.disabled"
+                ></v-list-item>
+              </template>
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-text-field
+              v-model="num_carga"
+              :disabled="num_carga_disabled"
+              label="Carga Núm."
+              variant="outlined"
+              
+              type="number"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="4">
+            <v-text-field
+              v-model="data_carga"
+              label="Data e Hora"
+              type="datetime-local"
+              variant="outlined"
+              
+              :disabled="data_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+        </v-row>
+        
+        <!-- <v-row v-if="estagio_carga == 'inicial'"> -->
+        <v-row>
+          <v-col cols="12" lg="2">
+            <v-select
+              v-model="detalhes_carregamento.vaga"
+              label="Vaga"
+              variant="outlined"
+              disabled
+            >
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-select
+              v-model="mesa_carga"
+              label="Mesa"
+              :items="[1,2,3,4,5]"
+              variant="outlined"
+              
+            >
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="tipo_gas_carga"
+              label="Tipo do Gás"
+              :items="lista_tipo_gas"
+              variant="outlined"
+              
+            >
+            </v-select>
+          </v-col>
+        </v-row>
+        <v-row>
+        
+          <v-col cols="12" lg="3">
+            <v-text-field
+              v-model="encerrante_carga"
+              label="Encerrante"
+              variant="outlined"
+              
+              :disabled="encerrante_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-text-field
+              v-model="pressao_carga"
+              label="Pressão"
+              variant="outlined"
+              
+              :disabled="pressao_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="status_carga"
+              :items="lista_status_carga"
+              label="Staus"
+              variant="outlined"
+              
+              :disabled="status_carga_disabled"
+            >
+              <template v-slot:item="{props, item}">
+                <v-list-item
+                  v-bind="props"
+                  :disabled="item.raw.disabled"
+                ></v-list-item>
+              </template>
+            </v-select>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="mostrarTextHelpersAlerts">
+          <v-col>
+            <v-alert
+              color="blue"
+              density="compact"
+              border="start"
+              variant="outlined"
+              :text="textHelperRegistroCarga"
+              icon="mdi-information"
+            >
+            </v-alert>
+          </v-col>
+        </v-row>
+        
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text="Fechar" variant="plain" @click="iniciar_carga_dialog = false"></v-btn>
+        <v-btn @click="fn_iniciar_carga()" color="primary" variant="tonal">Registrar Carga</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog> <!-- Fim do iniciar_carga_dialog -->
+
+  <!-- FAZER CORTE DIALOG -->
+  <v-dialog v-model="fazer_corte_dialog" max-width="840" >
+    <v-card title="Fazer Corte">
+      <v-card-text class="pt-6">
+        <v-row>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="estagio_carga"
+              label="Estágio da Carga"
+              :items="lista_estagio_carga"
+              variant="outlined"
+              
+              :disabled="estagio_carga_disabled"
+            >
+              <template v-slot:item="{props, item}">
+                <v-list-item
+                  v-bind="props"
+                  :disabled="item.raw.disabled"
+                ></v-list-item>
+              </template>
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-text-field
+              v-model="num_carga"
+              :disabled="num_carga_disabled"
+              label="Carga Núm."
+              variant="outlined"
+              
+              type="number"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="4">
+            <v-text-field
+              v-model="data_carga"
+              label="Data e Hora"
+              type="datetime-local"
+              variant="outlined"
+              
+              :disabled="data_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+        </v-row>
+        
+        <!-- <v-row v-if="estagio_carga == 'inicial'"> -->
+        <v-row>
+          <v-col cols="12" lg="2">
+            <v-select
+              v-model="detalhes_carregamento.vaga"
+              label="Vaga"
+              variant="outlined"
+              disabled
+            >
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-select
+              v-model="mesa_carga"
+              label="Mesa"
+              :items="[1,2,3,4,5]"
+              variant="outlined"
+              
+            >
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="tipo_gas_carga"
+              label="Tipo do Gás"
+              :items="lista_tipo_gas"
+              variant="outlined"
+              
+            >
+            </v-select>
+          </v-col>
+        </v-row>
+        <v-row>
+        
+          <v-col cols="12" lg="3">
+            <v-text-field
+              v-model="encerrante_carga"
+              label="Encerrante"
+              variant="outlined"
+              
+              :disabled="encerrante_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-text-field
+              v-model="pressao_carga"
+              label="Pressão"
+              variant="outlined"
+              
+              :disabled="pressao_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="status_carga"
+              :items="lista_status_carga"
+              label="Staus"
+              variant="outlined"
+              
+              :disabled="status_carga_disabled"
+            >
+              <template v-slot:item="{props, item}">
+                <v-list-item
+                  v-bind="props"
+                  :disabled="item.raw.disabled"
+                ></v-list-item>
+              </template>
+            </v-select>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="mostrarTextHelpersAlerts">
+          <v-col>
+            <v-alert
+              color="blue"
+              density="compact"
+              border="start"
+              variant="outlined"
+              :text="textHelperRegistroCarga"
+              icon="mdi-information"
+            >
+            </v-alert>
+          </v-col>
+        </v-row>
+        
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text="Fechar" variant="plain" @click="fazer_corte_dialog = false"></v-btn>
+        <v-btn @click="fn_fazer_corte()" color="primary" variant="tonal">Registrar Corte</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog> <!-- Fim do fazer_corte_dialog -->
+
+  <!-- FINALIZAR CARGA DIALOG -->
+  <v-dialog v-model="finalizar_carga_dialog" max-width="840" >
+    <v-card title="Finalizar Carga">
+      <v-card-text class="pt-6">
+        <v-row>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="estagio_carga"
+              label="Estágio da Carga"
+              :items="lista_estagio_carga"
+              variant="outlined"
+              
+              :disabled="estagio_carga_disabled"
+            >
+              <template v-slot:item="{props, item}">
+                <v-list-item
+                  v-bind="props"
+                  :disabled="item.raw.disabled"
+                ></v-list-item>
+              </template>
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-text-field
+              v-model="num_carga"
+              :disabled="num_carga_disabled"
+              label="Carga Núm."
+              variant="outlined"
+              
+              type="number"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="4">
+            <v-text-field
+              v-model="data_carga"
+              label="Data e Hora"
+              type="datetime-local"
+              variant="outlined"
+              
+              :disabled="data_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+        </v-row>
+        
+        <!-- <v-row v-if="estagio_carga == 'inicial'"> -->
+        <v-row>
+          <v-col cols="12" lg="2">
+            <v-select
+              v-model="detalhes_carregamento.vaga"
+              label="Vaga"
+              variant="outlined"
+              disabled
+            >
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-select
+              v-model="mesa_carga"
+              label="Mesa"
+              :items="[1,2,3,4,5]"
+              variant="outlined"
+              
+            >
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="tipo_gas_carga"
+              label="Tipo do Gás"
+              :items="lista_tipo_gas"
+              variant="outlined"
+              
+            >
+            </v-select>
+          </v-col>
+        </v-row>
+        <v-row>
+        
+          <v-col cols="12" lg="3">
+            <v-text-field
+              v-model="encerrante_carga"
+              label="Encerrante"
+              variant="outlined"
+              
+              :disabled="encerrante_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-text-field
+              v-model="pressao_carga"
+              label="Pressão"
+              variant="outlined"
+              
+              :disabled="pressao_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="status_carga"
+              :items="lista_status_carga"
+              label="Staus"
+              variant="outlined"
+              
+              :disabled="status_carga_disabled"
+            >
+              <template v-slot:item="{props, item}">
+                <v-list-item
+                  v-bind="props"
+                  :disabled="item.raw.disabled"
+                ></v-list-item>
+              </template>
+            </v-select>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="mostrarTextHelpersAlerts">
+          <v-col>
+            <v-alert
+              color="blue"
+              density="compact"
+              border="start"
+              variant="outlined"
+              :text="textHelperRegistroCarga"
+              icon="mdi-information"
+            >
+            </v-alert>
+          </v-col>
+        </v-row>
+        
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text="Fechar" variant="plain" @click="finalizar_carga_dialog = false"></v-btn>
+        <v-btn @click="fn_finalizar_carga()" color="primary" variant="tonal">Finalizar Carga</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog> <!-- Fim do finalizar_carga_dialog -->
+  
+  <!-- FINALIZAR CARREGAMENTO DIALOG -->
+  <v-dialog v-model="finalizar_carregamento_dialog" max-width="840" >
+    <v-card title="Finalizar Carregamento">
+      <v-card-text class="pt-6">
+        <v-row>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="estagio_carga"
+              label="Estágio da Carga"
+              :items="lista_estagio_carga"
+              variant="outlined"
+              
+              :disabled="estagio_carga_disabled"
+            >
+              <template v-slot:item="{props, item}">
+                <v-list-item
+                  v-bind="props"
+                  :disabled="item.raw.disabled"
+                ></v-list-item>
+              </template>
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-text-field
+              v-model="num_carga"
+              :disabled="num_carga_disabled"
+              label="Carga Núm."
+              variant="outlined"
+              
+              type="number"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="4">
+            <v-text-field
+              v-model="data_carga"
+              label="Data e Hora"
+              type="datetime-local"
+              variant="outlined"
+              
+              :disabled="data_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+        </v-row>
+        
+        <v-row>
+          <v-col cols="12" lg="2">
+            <v-select
+              v-model="detalhes_carregamento.vaga"
+              label="Vaga"
+              variant="outlined"
+              disabled
+            >
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="2">
+            <v-select
+              v-model="mesa_carga"
+              label="Mesa"
+              :items="[1,2,3,4,5]"
+              variant="outlined"
+              
+            >
+            </v-select>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="tipo_gas_carga"
+              label="Tipo do Gás"
+              :items="lista_tipo_gas"
+              variant="outlined"
+              
+            >
+            </v-select>
+          </v-col>
+        </v-row>
+        <v-row>
+        
+          <v-col cols="12" lg="3">
+            <v-text-field
+              v-model="encerrante_carga"
+              label="Encerrante"
+              variant="outlined"
+              
+              :disabled="encerrante_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-text-field
+              v-model="pressao_carga"
+              label="Pressão"
+              variant="outlined"
+              
+              :disabled="pressao_carga_disabled"
+            >
+            </v-text-field>
+          </v-col>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="status_carga"
+              :items="lista_status_carga"
+              label="Staus"
+              variant="outlined"
+              
+              :disabled="status_carga_disabled"
+            >
+              <template v-slot:item="{props, item}">
+                <v-list-item
+                  v-bind="props"
+                  :disabled="item.raw.disabled"
+                ></v-list-item>
+              </template>
+            </v-select>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="mostrarTextHelpersAlerts">
+          <v-col>
+            <v-alert
+              color="blue"
+              density="compact"
+              border="start"
+              variant="outlined"
+              :text="textHelperRegistroCarga"
+              icon="mdi-information"
+            >
+            </v-alert>
+          </v-col>
+        </v-row>
+        
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text="Fechar" variant="plain" @click="finalizar_carregamento_dialog = false"></v-btn>
+        <v-btn @click="fn_finalizar_carregamento()" color="primary" variant="tonal">Finalizar Carregamento</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog> <!-- Fim do finalizar_carregamento_dialog -->
+
+  <!-- FINALIZAR CARREGAMENTO DIALOG -->
+  <v-dialog v-model="sair_para_cliente_dialog" max-width="840" >
+    <v-card title="Sair para Cliente">
+      <v-card-text class="pt-6">
+        <v-row>
+          
+          <v-col cols="12" lg="4">
+            <v-text-field
+              v-model="data_saida_para_cliente"
+              label="Data e Hora de Saída"
+              type="datetime-local"
+              variant="outlined"
+              
+            >
+            </v-text-field>
+          </v-col>
+
+          <v-col cols="12" sm="4" md="4" lg="5">
+            <v-autocomplete 
+              v-model="cliente_saida"
+              :items="lista_clientes_apelido" 
+              label="Cliente (Saída)"
+              variant="outlined"
+              auto-select-first
+            >
+            </v-autocomplete>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col cols="12" lg="3">
+            <v-select
+              v-model="status_carga"
+              :items="lista_status_carga"
+              label="Staus"
+              variant="outlined"
+              :disabled="status_carga_disabled"
+            >
+              <template v-slot:item="{props, item}">
+                <v-list-item
+                  v-bind="props"
+                  :disabled="item.raw.disabled"
+                ></v-list-item>
+              </template>
+            </v-select>
+          </v-col>
+        </v-row>
+
+        <v-row v-if="mostrarTextHelpersAlerts">
+          <v-col>
+            <v-alert
+              color="blue"
+              density="compact"
+              border="start"
+              variant="outlined"
+              :text="textHelperRegistroCarga"
+              icon="mdi-information"
+            >
+            </v-alert>
+          </v-col>
+        </v-row>
+        
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn text="Fechar" variant="plain" @click="sair_para_cliente_dialog = false"></v-btn>
+        <v-btn @click="fn_sair_para_cliente()" color="primary" variant="tonal">Registrar Saída</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog> <!-- Fim do sair_para_cliente_dialog -->
 
   <v-snackbar v-model="realocarCarretaSnackbar" color="green-lighten-1" :timeout="2500">
-    A carreta foi realocada entre vagas
+    Carreta realocada
 
     <template v-slot:actions>
       <v-btn
@@ -837,6 +1498,80 @@
         prepend-icon="mdi-close"
       >
         
+      </v-btn>
+    </template>
+  </v-snackbar>
+
+  <v-snackbar v-model="iniciarCargaSnackbar" color="green-lighten-1" :timeout="2500">
+    Carga iniciada
+
+    <template v-slot:actions>
+      <v-btn
+        color="white"
+        variant="text"
+        @click="iniciarCargaSnackbar = false"
+        prepend-icon="mdi-close"
+      >
+        
+      </v-btn>
+    </template>
+  </v-snackbar>
+  
+  <v-snackbar v-model="fazerCorteSnackbar" color="green-lighten-1" :timeout="2500">
+    Corte registrado
+
+    <template v-slot:actions>
+      <v-btn
+        color="white"
+        variant="text"
+        @click="fazerCorteSnackbar = false"
+        prepend-icon="mdi-close"
+      >
+        
+      </v-btn>
+    </template>
+  </v-snackbar>
+
+  <v-snackbar v-model="finalizarCargaSnackbar" color="green-lighten-1" :timeout="2500">
+    Carga finalizada
+
+    <template v-slot:actions>
+      <v-btn
+        color="white"
+        variant="text"
+        @click="finalizarCargaSnackbar = false"
+        prepend-icon="mdi-close"
+      >
+        
+      </v-btn>
+    </template>
+  </v-snackbar>
+
+  <v-snackbar v-model="finalizarCarregamentoSnackbar" color="green-lighten-1" :timeout="2500">
+    Carregamento finalizado
+
+    <template v-slot:actions>
+      <v-btn
+        color="white"
+        variant="text"
+        @click="finalizarCarregamentoSnackbar = false"
+        prepend-icon="mdi-close"
+      >
+        
+      </v-btn>
+    </template>
+  </v-snackbar>
+
+  <v-snackbar v-model="sairParaClienteSnackbar" color="green-lighten-1" :timeout="2500">
+    Carreta saiu para cliente
+
+    <template v-slot:actions>
+      <v-btn
+        color="white"
+        variant="text"
+        @click="sairParaClienteSnackbar = false"
+        prepend-icon="mdi-close"
+      >
       </v-btn>
     </template>
   </v-snackbar>
@@ -966,26 +1701,11 @@
   
 </template>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script setup>
 import { ref, computed } from 'vue';
 import axios from 'axios';
 
-const mostrarTextHelpersAlerts = ref(false); // textos informativos presentes nas ações
+const mostrarTextHelpersAlerts = ref(true); // textos informativos presentes nas ações
 
 // ===================================================================
 const lista_estagio_carga = ref([
@@ -1047,6 +1767,8 @@ const tipo_gas_carga = ref();
 const encerrante_carga = ref();
 const pressao_carga = ref();
 const status_carga = ref();
+const data_saida_para_cliente = ref();
+const cliente_saida = ref();
 
 const estagio_carga_disabled = ref(false);
 const num_carga_disabled = ref(false);
@@ -1061,6 +1783,12 @@ const registro_acao_dialog = ref(false);
 const registro_acao_dialog_title = ref('');
 
 const realocar_carreta_dialog = ref(false);
+const iniciar_carga_dialog = ref(false);
+const fazer_corte_dialog = ref(false);
+const finalizar_carga_dialog = ref(false);
+const finalizar_carregamento_dialog = ref(false);
+const sair_para_cliente_dialog = ref(false);
+
 
 // TAB AÇÕES
 //
@@ -1073,7 +1801,7 @@ const btn_acoes_sair_para_cliente_disabled = ref(true);
 
 // FUNÇÃO fn_registrar_acao
 // 
-async function fn_registrar_acao() {
+/* async function fn_registrar_acao() {
   let carga = {
     num: num_carga.value,
     estagio: estagio_carga.value,
@@ -1122,15 +1850,16 @@ async function fn_registrar_acao() {
       console.log(res)
     }
   }).catch(error => console.log(error))
-} // Fim da function fn_registrar_acao
+} */ // Fim da function fn_registrar_acao
 
 const realocarCarretaSnackbar = ref(false);
 
 async function fn_realocar_carreta() {
 
-  if(vaga_origem.value != 'estoque' && vaga_origem.value != 'fora_da_vaga') {
+  // Atualizar collection Vagas
 
-    // Primeiro, faz a vaga de origem ficar disponível e sem placa (collection Vagas)...
+  // Primeiro, faz a vaga de origem ficar disponível e sem placa (collection Vagas)...
+  if(vaga_origem.value != 'estoque' && vaga_origem.value != 'fora_da_vaga') {
     await axios.put(
       'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Vagas/update?num=' + vaga_origem.value,
       {
@@ -1142,12 +1871,10 @@ async function fn_realocar_carreta() {
         console.log(res)
       }
     }).catch(error => console.log(error))
-  
   }
 
+  // Em seguida, faz a vaga de destino ficar ocupada e com a placa da carreta (collection Vagas)...
   if(vaga_destino.value != 'estoque' && vaga_destino.value != 'fora_da_vaga') {
-
-    // Em seguida, faz a vaga de destino ficar ocupada e com a placa da carreta (collection Vagas)...
     await axios.put(
       'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Vagas/update?num=' + vaga_destino.value,
       {
@@ -1160,14 +1887,18 @@ async function fn_realocar_carreta() {
       }
     }).catch(error => console.log(error))
 
+
+    // Atualizar collection Carregamentos
+
     // Por último atualiza a vaga do carregamento (collection Carregamentos)
     await axios.put(
       'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Carregamentos/vaga/update?id=' + id_carregamento_clicado.value,
       {
         vaga: vaga_destino.value,
-        mesa: dados_vagas.value.find(e => {
-          return e.num == vaga_destino.value
-        }).mesas_associadas.padrao.toString()
+        mesa: ""
+        // mesa: dados_vagas.value.find(e => {
+        //   return e.num == vaga_destino.value
+        // }).mesas_associadas.padrao.toString()
       }
     ).then(async res => {
       if(res.status == 200) {
@@ -1175,13 +1906,13 @@ async function fn_realocar_carreta() {
       }
     }).catch(error => console.log(error))
 
-  } else if(vaga_destino.value == 'estoque' || vaga_destino.value == 'fora_da_vaga') {
+  } else if (vaga_destino.value == 'estoque' || vaga_destino.value == 'fora_da_vaga') {
     // Por último atualiza a vaga do carregamento (collection Carregamentos)
     await axios.put(
       'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Carregamentos/vaga/update?id=' + id_carregamento_clicado.value,
       {
         vaga: vaga_destino.value,
-        mesa: vaga_destino.value
+        // mesa: vaga_destino.value
       }
     ).then(async res => {
       if(res.status == 200) {
@@ -1190,19 +1921,408 @@ async function fn_realocar_carreta() {
     }).catch(error => console.log(error))
   }
 
-
-
   await getCarregamentos(); // Atualiza a tabela de carregamentos, pois a vaga do carregamento mudou.
   realocar_carreta_dialog.value = false;
   detalhes_carregamento_dialog.value = false;
   realocarCarretaSnackbar.value = true;
   vaga_destino.value = null;
 
-  // console.log("refreshNuxtData");
-  // await refreshNuxtData();
-  // alert("navigateTo pfv :)")
-  // await navigateTo('/ucb/carregamentos');
 } // Fim da function fn_realocar_carreta
+
+const iniciarCargaSnackbar = ref(false);
+
+async function fn_iniciar_carga() {
+
+
+  // Atualização da collection Carregamentos
+
+  let carga = {
+    num: num_carga.value,
+    estagio: estagio_carga.value,
+    data: data_carga.value,
+    // data: {'$date': data_carga.value},
+    vaga: detalhes_carregamento.value.vaga,
+    mesa: mesa_carga.value.toString(),
+    tipo_gas: tipo_gas_carga.value,
+    encerrante: encerrante_carga.value,
+    pressao: pressao_carga.value,
+    status: status_carga.value
+  }
+  console.log(id_carregamento_clicado.value)
+  console.log(JSON.stringify(carga,null,2));
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Carregamentos/update?id=' + id_carregamento_clicado.value, carga
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+
+  // Atualização da collection Mesas
+
+  // Obs.: reconsiderar refatorar este código, porque como a ação aqui é "iniciar_carga", 
+  // talvez o estagio_carga.vlaue só seja possível como "inicial" neste ponto.
+
+  // let status_mesa, placa_carreta;
+  // if (estagio_carga.value == 'inicial' || estagio_carga.value == 'parcial') {
+  //   status_mesa = 'carregando'
+  //   placa_carreta = detalhes_carregamento.value.placa_carreta
+  // } else if (estagio_carga.value == 'final') { // Talvez eu devesse apagar esta linha. Ação é "iniciar_carga"
+  //   status_mesa = 'ociosa'
+  //   placa_carreta = ""
+  // }
+
+  let dados_para_mesa = {
+    status: "carregando",
+    encerrante_atual: encerrante_carga.value,
+    pressao_atual: pressao_carga.value,
+    data_hora_registro_enc_pr: data_carga.value,
+    // data_hora_registro_enc_pr: {'$date': data_carga.value},
+    vaga_carregando: detalhes_carregamento.value.vaga,
+    placa_carreta: detalhes_carregamento.value.placa_carreta
+  }
+  // console.log(JSON.stringify(dados_para_mesa,null,2));
+
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Mesas/update?num=' + mesa_carga.value, dados_para_mesa
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+
+  // Atualização da collection Vagas (não se aplica nesta ação/função)
+
+
+  // Atualização da collection PlacasCarretas
+  
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/placas_carretas/update?placa_carreta=' + detalhes_carregamento.value.placa_carreta,
+    {
+      status: "carregando"
+    }
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+  await getCarregamentos(); // Atualiza a tabela de carregamentos, pois a vaga do carregamento mudou.
+  iniciar_carga_dialog.value = false;
+  detalhes_carregamento_dialog.value = false;
+  iniciarCargaSnackbar.value = true;
+
+} // Fim da function fn_iniciar_carga
+
+const fazerCorteSnackbar = ref(false);
+
+async function fn_fazer_corte() {
+
+
+  // Atualização da collection Carregamentos
+
+  let carga = {
+    num: num_carga.value,
+    estagio: estagio_carga.value,
+    data: data_carga.value,
+    vaga: detalhes_carregamento.value.vaga,
+    mesa: mesa_carga.value.toString(),
+    tipo_gas: tipo_gas_carga.value,
+    encerrante: encerrante_carga.value,
+    pressao: pressao_carga.value,
+    status: status_carga.value
+  }
+  console.log(id_carregamento_clicado.value)
+  console.log(JSON.stringify(carga,null,2));
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Carregamentos/update?id=' + id_carregamento_clicado.value, carga
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+
+  // Atualização da collection Mesas
+
+  // let status_mesa, placa_carreta;
+  // if(estagio_carga.value == 'inicial' || estagio_carga.value == 'parcial') {
+  //   status_mesa = 'carregando'
+  //   placa_carreta = detalhes_carregamento.value.placa_carreta
+  // } else if (estagio_carga.value == 'final') {
+  //   status_mesa = 'ociosa'
+  //   placa_carreta = ""
+  // }
+
+  let dados_para_mesa = {
+    status: "carregando",
+    encerrante_atual: encerrante_carga.value,
+    pressao_atual: pressao_carga.value,
+    data_hora_registro_enc_pr: data_carga.value,
+    vaga_carregando: detalhes_carregamento.value.vaga,
+    placa_carreta: detalhes_carregamento.value.placa_carreta
+  }
+
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Mesas/update?num=' + mesa_carga.value, dados_para_mesa
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+
+  // Atualização da collection Vagas (não se aplica nesta ação/função)
+
+
+  // Atualização da collection PlacasCarretas (não é necessário aqui, pois seria redundante em relação à ação anterior iniciar_carga)
+
+  await getCarregamentos(); // Atualiza a tabela de carregamentos, pois a vaga do carregamento mudou.
+  fazer_corte_dialog.value = false;
+  detalhes_carregamento_dialog.value = false;
+  fazerCorteSnackbar.value = true;
+
+} // Fim da function fn_fazer_corte
+
+const finalizarCargaSnackbar = ref(false);
+
+async function fn_finalizar_carga() {
+
+
+  // Atualização da collection Carregamentos
+
+  let carga = {
+    num: num_carga.value,
+    estagio: estagio_carga.value,
+    data: data_carga.value,
+    vaga: detalhes_carregamento.value.vaga,
+    // mesa: mesa_carga.value.toString(),
+    mesa: "",
+    tipo_gas: tipo_gas_carga.value,
+    encerrante: encerrante_carga.value,
+    pressao: pressao_carga.value,
+    status: status_carga.value
+  }
+
+  console.log(id_carregamento_clicado.value)
+  console.log(JSON.stringify(carga,null,2));
+  
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Carregamentos/update?id=' + id_carregamento_clicado.value, carga
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+
+  // Atualização da collection Mesas
+
+  // Rever este bloco de código abaixo, pois a ação atual é finalizar_carga, e nesta ação, o estagio_carga já é definido como "final".
+  /* let status_mesa, placa_carreta;
+  if(estagio_carga.value == 'inicial' || estagio_carga.value == 'parcial') {
+    status_mesa = 'carregando'
+    placa_carreta = detalhes_carregamento.value.placa_carreta
+  } else if (estagio_carga.value == 'final') {
+    status_mesa = 'ociosa'
+    placa_carreta = ""
+  } */
+
+  let dados_para_mesa = {
+    // status: status_mesa,
+    status: "ociosa",
+    encerrante_atual: encerrante_carga.value,
+    pressao_atual: 0,
+    data_hora_registro_enc_pr: data_carga.value,
+    // vaga_carregando: detalhes_carregamento.value.vaga,
+    vaga_carregando: "",
+    // placa_carreta: placa_carreta
+    placa_carreta: ""
+  }
+
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Mesas/update?num=' + mesa_carga.value, dados_para_mesa
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+
+  // Atualização da collection Vagas (não para esta ação/função)
+
+
+  // Atualização da collection PlacasCarretas
+  
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/placas_carretas/update?placa_carreta=' + detalhes_carregamento.value.placa_carreta,
+    {
+      status: "parcialmente_carregada"
+    }
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+  await getCarregamentos(); // Atualiza a tabela de carregamentos, pois a vaga do carregamento mudou.
+  finalizar_carga_dialog.value = false;
+  detalhes_carregamento_dialog.value = false;
+  finalizarCargaSnackbar.value = true;
+
+} // Fim da function fn_finalizar_carga
+
+const finalizarCarregamentoSnackbar = ref(false);
+
+async function fn_finalizar_carregamento() {
+
+  // Atualização da collection Carregamentos
+
+  let carga = {
+    // num: num_carga.value,
+    // estagio: estagio_carga.value,
+    // data: data_carga.value,
+    // vaga: detalhes_carregamento.value.vaga,
+    // mesa: mesa_carga.value.toString(),
+    // tipo_gas: tipo_gas_carga.value,
+    // encerrante: encerrante_carga.value,
+    // pressao: pressao_carga.value,
+    status: status_carga.value
+  }
+  console.log(id_carregamento_clicado.value)
+  console.log(JSON.stringify(carga,null,2));
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Carregamentos/update?id=' + id_carregamento_clicado.value, carga
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+
+  // Atualização da collection Mesas (não é necessário aqui, pois a ação anterior fn_finalizar_carga já fez os registros necessários)
+
+
+  // Atualização da collection Vagas (não se aplica a esta função/ação)
+
+  
+  // Atualização da collection PlacasCarretas
+    
+  await axios.put(
+      'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/placas_carretas/update?placa_carreta=' + detalhes_carregamento.value.placa_carreta,
+      {
+        status: "totalmente_carregada"
+      }
+    ).then(async res => {
+      if(res.status == 200) {
+        console.log(res)
+      }
+    }).catch(error => console.log(error))
+
+
+  await getCarregamentos(); // Atualiza a tabela de carregamentos, pois a vaga do carregamento mudou.
+  finalizar_carregamento_dialog.value = false;
+  detalhes_carregamento_dialog.value = false;
+  finalizarCarregamentoSnackbar.value = true;
+
+} // Fim da function fn_finalizar_carregamento
+
+const sairParaClienteSnackbar = ref(false);
+
+async function fn_sair_para_cliente() {
+
+  // Atualização da collection Carregamentos
+
+  let dados_saida_para_cliente = {
+    // num: num_carga.value,
+    // estagio: estagio_carga.value,
+    cliente_saida: cliente_saida.value,
+    data_saida_para_cliente: data_saida_para_cliente.value,
+    status: status_carga.value,
+    vaga: ''
+    // mesa: mesa_carga.value.toString(),
+    // tipo_gas: tipo_gas_carga.value,
+    // encerrante: encerrante_carga.value,
+    // pressao: pressao_carga.value,
+  }
+  console.log(id_carregamento_clicado.value)
+  console.log(JSON.stringify(dados_saida_para_cliente,null,2));
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Carregamentos/update?id=' + id_carregamento_clicado.value, dados_saida_para_cliente
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+
+  // Atualização da collection Mesas
+
+  /* let status_mesa, placa_carreta;
+  if(estagio_carga.value == 'inicial' || estagio_carga.value == 'parcial') {
+    status_mesa = 'carregando'
+    placa_carreta = detalhes_carregamento.value.placa_carreta
+  } else if (estagio_carga.value == 'final') {
+    status_mesa = 'ociosa'
+    placa_carreta = ""
+  } */
+
+  /* let dados_para_mesa = {
+    status: status_mesa,
+    encerrante_atual: encerrante_carga.value,
+    pressao_atual: pressao_carga.value,
+    data_hora_registro_enc_pr: data_carga.value,
+    vaga_carregando: detalhes_carregamento.value.vaga,
+    placa_carreta: placa_carreta
+  }
+
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Mesas/update?num=' + mesa_carga.value, dados_para_mesa
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error)) */
+
+
+  // Atualização da collection Vagas
+  
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Vagas/update?num=' + detalhes_carregamento.value.vaga,
+    {
+      status: 'disponivel',
+      placa_carreta: ''
+    }
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+
+  // Atualização da collection PlacasCarretas
+  
+  await axios.put(
+    'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/placas_carretas/update?placa_carreta=' + detalhes_carregamento.value.placa_carreta,
+    {
+      status: "saiu_para_cliente"
+    }
+  ).then(async res => {
+    if(res.status == 200) {
+      console.log(res)
+    }
+  }).catch(error => console.log(error))
+
+
+  await getCarregamentos(); // Atualiza a tabela de carregamentos, pois a vaga do carregamento mudou.
+  sair_para_cliente_dialog.value = false;
+  detalhes_carregamento_dialog.value = false;
+  sairParaClienteSnackbar.value = true;
+
+} // Fim da function fn_sair_para_cliente
+
 
 function habilitar_acoes(status_carregamento) {
   // Esta function habilita e desabilita os botões
@@ -1225,7 +2345,7 @@ function habilitar_acoes(status_carregamento) {
   } else if (status_carregamento == "carregando") {
     btn_acoes_fazer_corte_disabled.value = false;
     btn_acoes_finalizar_carga_disabled.value = false;
-    btn_acoes_finalizar_carregamento_disabled.value = false;
+    // btn_acoes_finalizar_carregamento_disabled.value = false;
   } else if (status_carregamento == "parcialmente_carregada") {
     btn_acoes_realocar_carreta_disabled.value = false;
     btn_acoes_iniciar_carga_disabled.value = false;
@@ -1251,7 +2371,8 @@ async function fn_abrir_dialog_registro_acao(acao) {
 
   data_carga.value = data_atual_para_string();
   
-  if(acao == 'realocar_carreta') {
+  if (acao == 'realocar_carreta') {
+    
     realocar_carreta_dialog.value = true;
     // registro_acao_dialog_title.value = 'Realocar Carreta';
     // estagio_carga.value = "inicial";
@@ -1276,49 +2397,47 @@ async function fn_abrir_dialog_registro_acao(acao) {
         title: 'Fora da Vaga'
       }
     );
-    // console.log(vaga_destino_lista.value);
-    // vaga_destino_lista.value = [
-    //   {
-    //     num: 1,
-    //     disabled: true
-    //   },
-    //   {
-    //     num: 2,
-    //     disabled: false
-    //   }
-    // ];
+    
     textHelperRegistroCarga.value = "A carreta será realocada da vaga de origem para a vaga de destino."
   
-  } else if(acao == 'iniciar_carga') {
-    registro_acao_dialog.value = true;
-    registro_acao_dialog_title.value = 'Iniciar Carga';
+  } 
+  else if (acao == 'iniciar_carga') {
+    iniciar_carga_dialog.value = true;
+
     estagio_carga.value = "inicial";
     status_carga.value = 'carregando';
     textHelperRegistroCarga.value = "Será registrado o estágio inicial desta carga."
   
-  } else if(acao == 'fazer_corte') {
-    registro_acao_dialog.value = true;
-    registro_acao_dialog_title.value = 'Fazer Corte';
+  } 
+  else if (acao == 'fazer_corte') {
+    fazer_corte_dialog.value = true;
     estagio_carga.value = "parcial";
     status_carga.value = "carregando"
     textHelperRegistroCarga.value = "Será registrado um corte (ou \"parcial\") para esta carga."
   
-  } else if(acao == 'finalizar_carga') {
-    registro_acao_dialog.value = true;
-    registro_acao_dialog_title.value = 'Finalizar Carga';
+  } 
+  else if (acao == 'finalizar_carga') {
+    finalizar_carga_dialog.value = true;
     estagio_carga.value = "final";
     status_carga.value = "parcialmente_carregada"
     textHelperRegistroCarga.value = "Será registrado o estágio final desta carga atribuindo à carreta o status de \"Parcialmente Carregada\"."
   
-  } else if(acao == 'finalizar_carregamento') {
-    registro_acao_dialog.value = true;
-    registro_acao_dialog_title.value = 'Finalizar Carregamento';
+  } 
+  else if (acao == 'finalizar_carregamento') {
+    finalizar_carregamento_dialog.value = true;
     estagio_carga.value = "final";
     status_carga.value = "totalmente_carregada"
     textHelperRegistroCarga.value = "Será registrado o final deste carregamento, atribuindo à carreta o status de \"Totalmente Carregada\" deixando-a pronta para seguir viagem para o cliente."
   
-  } else if(acao == 'sair_para_cliente') {
-    registro_acao_dialog_title.value = 'Sair para Cliente';
+  } 
+  else if (acao == 'sair_para_cliente') {
+    sair_para_cliente_dialog.value = true;
+
+    data_saida_para_cliente.value = data_atual_para_string();
+
+    estagio_carga.value = "";
+    status_carga.value = "saiu_para_cliente";
+    textHelperRegistroCarga.value = "Será registrada a saída desta carreta para o cliente."
   }
 
   let ult_carregamento;
@@ -1383,7 +2502,6 @@ const tab_detalhes_carregamento = ref('detalhes');
 const cargas_carregamento = ref([]);
 
 let volume_carga; // Será usada dentro de mostrar_detalhes_carregamento
-
 
 // FUNÇÃO mostrar_detalhes_carregamento
 //
@@ -1591,10 +2709,12 @@ headers.value = [
   // {title: 'Data Reg.', align: 'start', key: 'meta_data_reg_entrada', sortable: false},
   {title: 'Placa Carreta', align: 'start', key: 'placa_carreta', sortable: false},
   {title: 'Data Entrada', align: 'start', key: 'data_entrada', sortable: false},
+  {title: 'Data Saída', align: 'start', key: 'data_saida_para_cliente', sortable: false},
   {title: 'Status', align: 'start', key: 'status', sortable: false},
   {title: 'Vaga', align: 'start', key: 'vaga', sortable: false},
   {title: 'Mesa', align: 'start', key: 'mesa', sortable: false},
   {title: 'Cliente Retorno', align: 'start', key: 'cliente_retorno', sortable: false},
+  {title: 'Cliente Saída', align: 'start', key: 'cliente_saida', sortable: false},
   {title: 'Volume', align: 'start', key: 'volume_carregamento', sortable: false},
   // {title: 'Motorista', align: 'end', key: 'motorista', sortable: false},
 ]
@@ -1618,6 +2738,25 @@ onMounted(async () => {
 })
 
 // =================================================================================
+
+function get_cliente_saida(carregamento) {
+  if(carregamento.cliente_saida != undefined) {
+    return dados_clientes.value.find(cliente => {
+      return cliente.meta.cliente_cod == carregamento.cliente_saida
+    }).meta.apelido
+  } else {
+    return ""
+  }
+}
+
+function get_data_saida_para_cliente(carregamento) {
+  if(carregamento.data_saida_para_cliente != undefined) {
+    // return carregamento.data_saida_para_cliente.$date
+    return DateToString(new Date(carregamento.data_saida_para_cliente.$date))
+  } else {
+    return ""
+  }
+}
 
 async function getCarregamentos() {
   if(
@@ -1674,14 +2813,19 @@ async function getCarregamentos() {
     url_params += '&placa_carreta=' + filter_dialog_placa_carreta.value
   }
 
-  console.log(url_params);
+  // console.log(url_params);
   carregamentosResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Carregamentos/get' + url_params);
   dados_carregamentos.value = carregamentosResponse.data;
   
   dados_carregamentos.value = dados_carregamentos.value.map(carregamento => {
     return {
       ...carregamento,
+      // data_entrada: carregamento.data_entrada.$date,
       data_entrada: DateToString(new Date(carregamento.data_entrada.$date)),
+      // data_saida_para_cliente: DateToString(new Date(get_data_saida_para_cliente(carregamento))),
+      data_saida_para_cliente: get_data_saida_para_cliente(carregamento),
+      
+      // data_saida_para_cliente: DateToString(new Date(carregamento.data_saida_para_cliente.$date)),
       // meta_data_reg_entrada: DateToString(new Date(e.meta.data_reg_entrada.$date)),
       // num: siglaEmprAtende(e.num.empresa_atende) + "-" + e.num.cliente_sigla + "-" + e.num.seq.toString().padStart(3,'0') + "/" + e.num.mes.toString().padStart(2, '0') + "-" + e.num.ano.toString().padStart(4, '0'),
       // produto_descricao: string_capitalize(dados_produto.value.find(b => {
@@ -1690,6 +2834,9 @@ async function getCarregamentos() {
       cliente_retorno: dados_clientes.value.find(cliente => {
         return cliente.meta.cliente_cod == carregamento.cliente_retorno
       }).meta.apelido,
+      
+      cliente_saida: get_cliente_saida(carregamento),
+
       volume_carregamento: carregamento.cargas != undefined ? calcularVolumeCarregamento(carregamento) : 0
     }
   })
@@ -1825,20 +2972,6 @@ function data_atual_para_string() {
 }
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <style>
 .table-cargas {

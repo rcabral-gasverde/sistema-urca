@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-04-12T14:45:18.215Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="jvOK1A2i_YK-f6k3xJF6" version="24.2.3" type="onedrive">
+<mxfile host="app.diagrams.net" modified="2024-05-03T14:35:42.281Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="ZrI0Wn7AMOXvww-c1Uru" version="24.3.1" type="onedrive" pages="2">
   <diagram name="Página-1" id="APbL37JFXDa4wdW5FV0d">
     <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -116,6 +116,14 @@
         <mxCell id="_TlwlnKGodl9wsCWiHMZ-10" value="status_carga" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#FF3333;fontStyle=1" vertex="1" parent="_TlwlnKGodl9wsCWiHMZ-11">
           <mxGeometry x="376" y="210" width="100" height="30" as="geometry" />
         </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="x_9JCMfrOMEnDbGhqkoe" name="entrar_carreta">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
       </root>
     </mxGraphModel>
   </diagram>
