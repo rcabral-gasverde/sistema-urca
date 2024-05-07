@@ -16,9 +16,9 @@
   <div class="text-h4 mt-6 text-grey-darken-2 pa-3 bg-grey-lighten-2 rounded-lg border">Sistema Urca</div>
 
   <div class="mb-4 mt-3">Acesse as principais funcionalidades no menu à esquerda.</div>
-  <div>
+  <!-- <div>
     Funcionalidades disponíveis no momento:
-  </div>
+  </div> -->
   <ul class="ml-8 mb-4">
     <li>Declarações de Viagens</li>
     <li>Mapa Interativo</li>
@@ -34,7 +34,16 @@
 
   <div class="text-h4 mt-8 text-grey-darken-2 pa-3 bg-grey-lighten-2 rounded-lg border">Novidades</div>
   
-  <div class="text-h5 mt-4 mb-3 text-grey-darken-2">02/05/2024 - Mapa Interativo</div>
+  <div class="text-h5 mt-4 mb-3 text-grey-darken-2">07/05/2024 - Atualização do Mapa Interativo</div>
+
+  <ul class="ml-8">
+    <li>Adição de novos layers: Satélite e Google Híbrido.</li>
+    <li>Endereços dos clientes são mostrados ao clicar em cima de cada círculo.</li>
+  </ul>
+
+  <br><br>
+
+  <div class="text-h5 mt-0 mb-3 text-grey-darken-2">02/05/2024 - Mapa Interativo</div>
   Neste mapa é possível visualizar todos os clientes (postos e indústrias), bases de compressão e plantas. Acesse no menu à esquerda em Relatórios > Mapa Interativo ou clicando <NuxtLink to="/relatorios/mapa_interativo">neste link</NuxtLink>.
   
   <br><br>
