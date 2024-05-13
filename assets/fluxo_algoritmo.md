@@ -32,6 +32,8 @@
 
 - quando um carregamento estiver como "totalmente_carregada" permitir que se inicie uma nova carga (atualmente não é permitido aperta no botão "Iniciar Carga" se o status do carregamento estiver como "totalmente_carregada").
 
+- quando uma carreta/carregamento está com status "saiu_para_cliente", a vaga ainda continua aparecendo na tabela!
+
 ## Tarefas  
 
 
