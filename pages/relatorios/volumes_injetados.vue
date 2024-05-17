@@ -109,7 +109,7 @@
               <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; background-color: transparent;">
                 <div style="color: #ed7d31; font-weight: bold; font-size:large;  line-height: normal;">Indústrias</div>
                 <div style="color: #ed7d31; font-weight: bold; font-size:x-large; line-height: normal; text-align: center;">{{Intl.NumberFormat('pt-BR').format(volumesTotaisPeriodo_industrias_TOTAL.toFixed(0))}} m³</div>
-                <div style="color: #ed7d31; font-weight: bold; font-size:large;  line-height: normal;">{{Intl.NumberFormat('pt-BR').format(Math.round( ((100 * volumesTotaisPeriodo_industrias_TOTAL)/(volumesTotaisPeriodo_postos_e_industrias_TOTAL + volumesTotaisPeriodo_neogas_TOTAL)) * 100) / 100)}} %</div>
+                <div style="color: #ed7d31; font-weight: bold; font-size:large;  line-height: normal;">{{Intl.NumberFormat('pt-BR').format(Math.round(((100 * volumesTotaisPeriodo_industrias_TOTAL)/(volumesTotaisPeriodo_postos_e_industrias_TOTAL + volumesTotaisPeriodo_neogas_TOTAL)) * 100) / 100)}} %</div>
               </div>
             </div>
             
