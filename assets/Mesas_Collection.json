@@ -1,0 +1,57 @@
+[
+    {
+        "num": "1",
+        "status": "ociosa",
+        "tipo_gas": "veicular",
+        "vazao": 0,
+        "encerrante_atual": 0,
+        "pressao_atual": 0,
+        "data_hora_registro_enc_pr": {"$date": "1900-01-01T00:00:00Z"},
+        "vaga_carregando": "",
+        "placa_carreta": ""
+    },
+    {
+        "num": "2",
+        "status": "ociosa",
+        "tipo_gas": "veicular",
+        "vazao": 0,
+        "encerrante_atual": 0,
+        "pressao_atual": 0,
+        "data_hora_registro_enc_pr": {"$date": "1900-01-01T00:00:00Z"},
+        "vaga_carregando": "",
+        "placa_carreta": ""
+    },
+    {
+        "num": "3",
+        "status": "ociosa",
+        "tipo_gas": "veicular",
+        "vazao": 0,
+        "encerrante_atual": 0,
+        "pressao_atual": 0,
+        "data_hora_registro_enc_pr": {"$date": "1900-01-01T00:00:00Z"},
+        "vaga_carregando": "",
+        "placa_carreta": ""
+    },
+    {
+        "num": "4",
+        "status": "ociosa",
+        "tipo_gas": "veicular",
+        "vazao": 0,
+        "encerrante_atual": 0,
+        "pressao_atual": 0,
+        "data_hora_registro_enc_pr": {"$date": "1900-01-01T00:00:00Z"},
+        "vaga_carregando": "",
+        "placa_carreta": ""
+    },
+    {
+        "num": "5",
+        "status": "ociosa",
+        "tipo_gas": "industrial",
+        "vazao": 0,
+        "encerrante_atual": 0,
+        "pressao_atual": 0,
+        "data_hora_registro_enc_pr": {"$date": "1900-01-01T00:00:00Z"},
+        "vaga_carregando": "",
+        "placa_carreta": ""
+    }
+]

@@ -26,9 +26,14 @@ export default defineNuxtConfig({
     },
     //...
     'nuxt-pdfmake',
-    // 'nuxt-security'
+    // 'nuxt-security',
+    'nuxt3-leaflet',
+    'nuxt-plotly'
   ],
   vite: {
+    optimizeDeps: {
+      include: ["plotly.js-dist-min"],
+    },
     define: {
       'process.env.DEBUG': false,
     },

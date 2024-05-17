@@ -1,0 +1,108 @@
+[
+    {
+        "num": "1",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "1"
+        }
+    },
+    {
+        "num": "2",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "1"
+        }
+    },
+    {
+        "num": "3",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "1"
+        }
+    },
+    {
+        "num": "4",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "2"
+        }
+    },
+    {
+        "num": "5",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "2"
+        }
+    },
+    {
+        "num": "6",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "3",
+            "opcional": "2"
+        }
+    },
+    {
+        "num": "7",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "3"
+        }
+    },
+    {
+        "num": "8",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "3"
+        }
+    },
+    {
+        "num": "9",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "4"
+        }
+    },
+    {
+        "num": "10",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "4"
+        }
+    },
+    {
+        "num": "11",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "4",
+            "opcional": "5"
+        }
+    },
+    {
+        "num": "12",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "5"
+        }
+    },
+    {
+        "num": "13",
+        "status": "disponivel",
+        "placa_carreta": "",
+        "mesas_associadas": {
+            "padrao": "5"
+        }
+    }
+]
