@@ -1050,7 +1050,7 @@ async function getVolumes() {
   padding-left: 15px;
   /* padding: 15px; */
   /* background-color: #f5f5f5; */
-  background-color: rgba(245, 245, 245, 1);
+  background-color: rgba(245, 245, 245, 0.85);
   z-index: 999;
   border: 1px solid gray;
   box-shadow: 0 5px 5px 0px rgba(102, 102, 102, 0.5);
