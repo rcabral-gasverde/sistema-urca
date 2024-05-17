@@ -51,7 +51,7 @@ cartoes.value = [
   {
     titulo: "Volumes Injetados",
     descricao: "Ver volumes injetados por cliente, baixar relatórios consolidados de todos os clientes etc.",
-    href: "",
+    href: "/relatorios/volumes_injetados",
   },
   {
     titulo: "Cromatografias",
