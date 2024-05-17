@@ -805,9 +805,7 @@ async function main() {
   datas_lista.value = [];
   popular_datas_lista();
   url_params.value = '?consumo_data_inicio=' + consumo_data_inicio.value + '&consumo_data_fim=' + consumo_data_fim.value;
-  await getVolumesInjetados();
-
- 
+  await getVolumesInjetados(); // --> volumesResponse é populado aqui nesta function
 
   volumesResponse.value.data.forEach((e) => {
     if(new Date(e.consumo_data) > data_consumo_fim_MAIOR_DO_RES.value) {
@@ -815,7 +813,10 @@ async function main() {
     }
   })
   console.log("data_consumo_fim_MAIOR_DO_RES.value: " + data_consumo_fim_MAIOR_DO_RES.value);
-  consumo_data_fim.value = data_consumo_fim_MAIOR_DO_RES.value.getFullYear().toString() + "-" + (data_consumo_fim_MAIOR_DO_RES.value.getMonth() + 1).toString().padStart(2,0) + "-" + data_consumo_fim_MAIOR_DO_RES.value.getDate().toString().padStart(2,0);
+  if(new Date(consumo_data_fim.value) > data_consumo_fim_MAIOR_DO_RES.value) {
+    // alert("maior")
+    consumo_data_fim.value = data_consumo_fim_MAIOR_DO_RES.value.getFullYear().toString() + "-" + (data_consumo_fim_MAIOR_DO_RES.value.getMonth() + 1).toString().padStart(2,0) + "-" + data_consumo_fim_MAIOR_DO_RES.value.getDate().toString().padStart(2,0);
+  }
 
   data_consumo_fim_fimmes.value = new Date(data_consumo_fim_MAIOR_DO_RES.value.getFullYear(), data_consumo_fim_MAIOR_DO_RES.value.getMonth() + 1, 0)
   console.log("data_consumo_fim_fimmes: " + data_consumo_fim_fimmes.value);
@@ -1032,6 +1033,7 @@ function getTipoCliente(cliente_cod) {
 }
 
 async function getVolumes() {
+  // alert(consumo_data_fim.value)
   // console.log(consumo_data_fim.value)
   // await getVolumesInjetados();
   await main();
