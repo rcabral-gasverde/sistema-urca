@@ -752,10 +752,10 @@ onMounted(async () => {
     console.log("divDatasConsumo.offsetWidth: " + divDatasConsumo.offsetWidth)
     if(window.pageYOffset > sticky) {
       // console.log("maior")
-      divDatasConsumo.classList.add("sticky")
+      // divDatasConsumo.classList.add("sticky")
       
     } else {
-      divDatasConsumo.classList.remove("sticky")
+      // divDatasConsumo.classList.remove("sticky")
     }
     
   }
