@@ -362,7 +362,8 @@ data_lines_postos.value = [
     // type: 'bar', 
     // mode: '', 
     type: 'scatter', 
-    mode: 'markers+text+lines', 
+    // mode: 'markers+text+lines', 
+    mode: 'markers+lines', 
     marker: {
       size: 10,
       color: '#4472C4'
@@ -428,7 +429,8 @@ data_lines_industrias.value = [
     // y: y.value,
     name: 'Indústrias',
     type: 'scatter', 
-    mode: 'markers+text+lines', 
+    // mode: 'markers+text+lines', 
+    mode: 'markers+lines', 
     marker: {
       size: 10,
       color: '#ed7d31'
@@ -453,7 +455,7 @@ const layout_lines_industrias: NuxtPlotlyLayout = {
     tickangle: 90,
   },
   yaxis: {
-    range: [20000, 80000],
+    range: [20000, 100000],
   },
   font: {
       size: 10,
@@ -555,7 +557,8 @@ data_lines_neogas.value = [
     // y: y.value,
     name: 'NEOgás',
     type: 'scatter', 
-    mode: 'markers+text+lines', 
+    // mode: 'markers+text+lines', 
+    mode: 'markers+lines', 
     marker: {
       size: 10,
       color: '#1a9448'
@@ -601,7 +604,8 @@ data_lines_cliente_selecionado.value = [
     // y: y.value,
     name: 'Cliente Selecionado',
     type: 'scatter', 
-    mode: 'markers+text+lines', 
+    // mode: 'markers+text+lines', 
+    mode: 'markers+lines', 
     marker: {
       size: 10,
       color: '#4472C4'
