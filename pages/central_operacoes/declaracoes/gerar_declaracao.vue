@@ -218,8 +218,12 @@ async function fetchPlacasCarretas() {
 
 async function fetchLastDeclaracaoCliente(codigo) {
   // const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/getLast?cliente_cod=' + codigo + '&data_saida=' + new Date(declaracao_data_saida.value).toString());
-  const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/testes/Declaracoes/getLast?cliente_cod=' + codigo + '&data_saida=' + new Date(declaracao_data_saida.value).toString());
+  // const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/getLast?cliente_cod=' + codigo + '&data_saida=' + new Date(declaracao_data_saida.value).toString());
+    const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/getLast?cliente_cod=' + codigo + '&data_saida=' + new Date(new Date(declaracao_data_saida.value).setHours(new Date(declaracao_data_saida.value).getHours() - 3)).toString());
   console.log('~fetch: ' + lastDecClienteResponse.data[0])
+  console.log('~fetch: ' + lastDecClienteResponse)
+
+  // console.log(lastDecClienteResponse.data[0].num)
   // const lastDecClienteResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Declaracoes/getLastCliente?cliente_codigo=' + codigo)
   // console.log("lastDecClienteResponse.data[0]: " + lastDecClienteResponse.data[0])
   // console.log(lastResponse.data);
@@ -250,7 +254,7 @@ function fn_preencher_lista_clientes_apelido() {
 async function fn_preencher_campos() {
   if(cliente.value != undefined) {
     console.log("cliente.value: " + cliente.value)
-    lastDecCli.value = await fetchLastDeclaracaoCliente(cliente.value)
+    // lastDecCli.value = await fetchLastDeclaracaoCliente(cliente.value)
     // console.log("fetchLastDeclaracaoCliente(cliente.value): " + ldc.num)
     
     dados_cliente.value = dados_clientes_mongodb.value.find((e) => {
@@ -273,6 +277,7 @@ async function fn_preencher_campos() {
 
 async function fn_preencher_declaracao_num() {
   lastDecCli.value = await fetchLastDeclaracaoCliente(cliente.value)
+  let dataMenos3H;
   // console.log(lastDecCli.value)
   if(dados_cliente.value != undefined) {
 
@@ -282,7 +287,18 @@ async function fn_preencher_declaracao_num() {
       empr_atende_sigla.value = "GV";
     }
 
+    console.log(declaracao_data_saida.value);
+
+    // console.log(new Date(declaracao_data_saida.value))
+    // console.log(new Date(declaracao_data_saida.value).setHours(new Date(declaracao_data_saida.value).getHours() - 3))
+    // console.log(new Date(declaracao_data_saida.value).setHours(new Date(declaracao_data_saida.value).getHours() - 3).toString())
+    // console.log(new Date(new Date(declaracao_data_saida.value).setHours(new Date(declaracao_data_saida.value).getHours() - 3)))
+
+    // dataMenos3H = new Date(new Date(declaracao_data_saida.value).setHours(new Date(declaracao_data_saida.value).getHours() - 3));
+    // console.log("dataMenos3H: " + dataMenos3H);
+
     if(lastDecCli.value != null && lastDecCli.value.num.mes == new Date(declaracao_data_saida.value).getMonth() + 1) {
+    // if(lastDecCli.value != null && lastDecCli.value.num.mes == dataMenos3H.getMonth() + 1) {
       declaracao_num_seq.value = lastDecCli.value.num.seq + 1;
       declaracao_num.value = empr_atende_sigla.value + "-" + dados_cliente.value.meta.cliente_sigla + "-" + declaracao_num_seq.value.toString().padStart(3, '0') + "/" + (new Date(declaracao_data_saida.value).getMonth() + 1).toString().padStart(2,'0') + "-" +  new Date(declaracao_data_saida.value).getFullYear().toString().padStart(4, '0')
     } else {
