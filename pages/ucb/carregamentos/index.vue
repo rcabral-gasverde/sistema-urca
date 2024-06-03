@@ -2998,6 +2998,7 @@ function getEncerranteMesa(mesa) {
 function fn_atualizar_campos_mesa() {
   tipo_gas_carga.value = getTipoGasMesa(mesa_carga.value)
   encerrante_carga.value = getEncerranteMesa(mesa_carga.value)
+  console.log("fn_atualizar_campos_mesa")
 }
 
 async function fetchPlacasCarretas() {
