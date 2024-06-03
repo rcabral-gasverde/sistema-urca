@@ -25,10 +25,9 @@
 
 ## Correções a fazer  
 ### Módulo Declarações  
-- Quando está para virar o mês, o meu programa gera um número errado para a declaração. Isto ocorre certamente por causa do fuso-horário. As declarações "GV-TERN-001/03-2024" e "UG-DALI-001/03-2024" não deveriam ser numeradas como "001", e sim com o maior número para aquele mês, pois são as últimas de seus respectivos clientes naquele mês.
+
 
 ### Módulo Carregamentos
-- quando uma carreta/carregamento está com status "saiu_para_cliente", a vaga ainda continua aparecendo na tabela!
 - nome "carga" x "carregamento" no código e na base de dados: no código, me parece que há lugarem em que "status_carga" deveria ser substituído por "status_carregamento".
 - quando um carregamento estiver como "totalmente_carregada" permitir que se inicie uma nova carga (atualmente não é permitido aperta no botão "Iniciar Carga" se o status do carregamento estiver como "totalmente_carregada").
 
@@ -104,6 +103,10 @@
 	- implementar a possibilidade de realocação para:
 		- fora da vaga
 		- estoque
+
+- Quando está para virar o mês, o meu programa gera um número errado para a declaração. Isto ocorre certamente por causa do fuso-horário. As declarações "GV-TERN-001/03-2024" e "UG-DALI-001/03-2024" não deveriam ser numeradas como "001", e sim com o maior número para aquele mês, pois são as últimas de seus respectivos clientes naquele mês. OK CORRIGIDO
+
+- quando uma carreta/carregamento está com status "saiu_para_cliente", a vaga ainda continua aparecendo na tabela!
 
 # Dados do programa
 

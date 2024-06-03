@@ -902,14 +902,35 @@
             </v-select>
           </v-col>
           <v-col cols="12" lg="2">
-            <v-select
+            <!-- <v-select
               v-model="mesa_carga"
               label="Mesa"
               :items="[1,2,3,4,5]"
               variant="outlined"
               
             >
+            </v-select> -->
+
+            <v-select
+              v-model="mesa_carga"
+              label="Mesa"
+              :items="mesa_carga_lista"
+              item-value="num"
+              item-title="title"
+              variant="outlined"
+              v-on:update:model-value="fn_atualizar_campos_mesa"
+              :disabled="mesa_carga_disabled"
+            >
+              <template v-slot:item="{props, item}">
+                <v-list-item
+                  v-bind="props"
+                  :disabled="item.raw.disabled"
+                >
+
+                </v-list-item>
+              </template>
             </v-select>
+
           </v-col>
           <v-col cols="12" lg="3">
             <v-select
@@ -917,7 +938,7 @@
               label="Tipo do Gás"
               :items="lista_tipo_gas"
               variant="outlined"
-              
+              disabled
             >
             </v-select>
           </v-col>
@@ -1050,7 +1071,7 @@
               label="Mesa"
               :items="[1,2,3,4,5]"
               variant="outlined"
-              
+              disabled
             >
             </v-select>
           </v-col>
@@ -1060,7 +1081,7 @@
               label="Tipo do Gás"
               :items="lista_tipo_gas"
               variant="outlined"
-              
+              disabled
             >
             </v-select>
           </v-col>
@@ -1193,7 +1214,7 @@
               label="Mesa"
               :items="[1,2,3,4,5]"
               variant="outlined"
-              
+              disabled
             >
             </v-select>
           </v-col>
@@ -1203,7 +1224,7 @@
               label="Tipo do Gás"
               :items="lista_tipo_gas"
               variant="outlined"
-              
+              disabled
             >
             </v-select>
           </v-col>
@@ -1313,7 +1334,7 @@
               type="datetime-local"
               variant="outlined"
               
-              :disabled="data_carga_disabled"
+              disabled
             >
             </v-text-field>
           </v-col>
@@ -1335,7 +1356,7 @@
               label="Mesa"
               :items="[1,2,3,4,5]"
               variant="outlined"
-              
+              disabled
             >
             </v-select>
           </v-col>
@@ -1345,7 +1366,7 @@
               label="Tipo do Gás"
               :items="lista_tipo_gas"
               variant="outlined"
-              
+              disabled
             >
             </v-select>
           </v-col>
@@ -1358,7 +1379,7 @@
               label="Encerrante"
               variant="outlined"
               
-              :disabled="encerrante_carga_disabled"
+              disabled
             >
             </v-text-field>
           </v-col>
@@ -1368,7 +1389,7 @@
               label="Pressão"
               variant="outlined"
               
-              :disabled="pressao_carga_disabled"
+              disabled
             >
             </v-text-field>
           </v-col>
@@ -1379,7 +1400,7 @@
               label="Staus"
               variant="outlined"
               
-              :disabled="status_carga_disabled"
+              disabled
             >
               <template v-slot:item="{props, item}">
                 <v-list-item
@@ -1758,11 +1779,13 @@ const lista_status_carga = ref([
 const vaga_origem = ref(); // apenas para ação realocar_carreta
 const vaga_destino = ref(); // apenas para ação realocar_carreta
 const vaga_destino_lista = ref([]); // apenas para ação realocar_carreta
+const mesa_carga_lista = ref([]);
 const num_carga = ref();
 const estagio_carga = ref();
 const data_carga = ref();
 const vaga_carga = ref();
 const mesa_carga = ref();
+const mesa_carga_disabled = ref(true);
 const tipo_gas_carga = ref();
 const encerrante_carga = ref();
 const pressao_carga = ref();
@@ -2406,6 +2429,53 @@ async function fn_abrir_dialog_registro_acao(acao) {
 
     estagio_carga.value = "inicial";
     status_carga.value = 'carregando';
+    
+    await getVagas();
+    await getMesas();
+
+    let mesaPadrao = await (await getMesasAssociadasAVaga(detalhes_carregamento.value.vaga)).padrao
+    let mesaOpcional = await (await getMesasAssociadasAVaga(detalhes_carregamento.value.vaga)).opcional
+
+    
+    mesa_carga_lista.value = dados_mesas.value.map((mesa, index) => {
+      
+      // se a mesa for associada à vaga que está em 
+      // detalhes_carregamento.vaga (padrao ou opcional)
+      // deve-se adicionar aquela mesa à mesa_carga_lista
+
+      if(mesa.num == mesaPadrao || mesa.num == mesaOpcional) {
+
+        return {
+          ...mesa,
+          title: mesa.num,
+          disabled: mesa.status == "carregando" ? true : false
+        }
+        
+        // return mesa
+        
+      } else {
+        return {
+          ...mesa,
+          title: mesa.num,
+          disabled: true
+        }
+      }
+      
+    })
+    mesa_carga_lista.value.sort((a,b) => a.num - b.num);
+    
+    mesa_carga.value = mesaPadrao;
+    if(mesaOpcional != undefined) {
+      mesa_carga_disabled.value = false;
+    } else {
+      mesa_carga_disabled.value = true;
+    }
+
+
+    tipo_gas_carga.value = await getTipoGasMesa(mesaPadrao);
+
+    encerrante_carga.value = getEncerranteMesa(mesaPadrao);
+
     textHelperRegistroCarga.value = "Será registrado o estágio inicial desta carga."
   
   } 
@@ -2414,7 +2484,9 @@ async function fn_abrir_dialog_registro_acao(acao) {
     estagio_carga.value = "parcial";
     status_carga.value = "carregando"
     textHelperRegistroCarga.value = "Será registrado um corte (ou \"parcial\") para esta carga."
-  
+
+    encerrante_carga.value = null;
+    pressao_carga.value = null;
   } 
   else if (acao == 'finalizar_carga') {
     finalizar_carga_dialog.value = true;
@@ -2649,6 +2721,7 @@ const dados_placas_carretas_mongodb = ref();
 const lista_placa_carreta = ref();
 const dados_clientes = ref();
 const dados_vagas = ref();
+const dados_mesas = ref();
 const lista_clientes_apelido = ref([]);
 
 // Detalhes carregamento
@@ -2903,6 +2976,28 @@ async function getClientes() {
 async function getVagas() {
   const vagasResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Vagas/get');
   dados_vagas.value = vagasResponse.data;
+}
+
+async function getMesas() {
+  const mesasResponse = await axios.get('https://sa-east-1.aws.data.mongodb-api.com/app/application-0-bqxve/endpoint/Mesas/get');
+  dados_mesas.value = mesasResponse.data;
+}
+
+async function getMesasAssociadasAVaga(vaga) {
+  return dados_vagas.value.find(v => v.num == vaga).mesas_associadas
+}
+
+function getTipoGasMesa(mesa) {
+  return dados_mesas.value.find(e => e.num == mesa).tipo_gas
+}
+
+function getEncerranteMesa(mesa) {
+  return dados_mesas.value.find(e => e.num == mesa).encerrante_atual
+}
+
+function fn_atualizar_campos_mesa() {
+  tipo_gas_carga.value = getTipoGasMesa(mesa_carga.value)
+  encerrante_carga.value = getEncerranteMesa(mesa_carga.value)
 }
 
 async function fetchPlacasCarretas() {

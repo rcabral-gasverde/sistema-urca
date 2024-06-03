@@ -114,6 +114,7 @@
                   auto-select-first
                   :disabled="campoMesaReadOnly"
                   :menu-icon = "menuIconMesa"
+                  v-if="false"
                 >
                 </v-autocomplete>
               </v-col>
