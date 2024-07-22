@@ -35,9 +35,9 @@
   <!-- <TituloPagina texto="Declarações" /> -->
   <v-row class="mb-1">
     <v-col cols="12" lg="4" md="4">
-      <NuxtLink to="/ucb/carregamentos/entrar_carreta">
-        <v-btn prepend-icon="mdi-plus" text="Entrada de Carreta"></v-btn>
-      </NuxtLink>
+      <!-- <NuxtLink to="/ucb/carregamentos/entrar_carreta"> -->
+        <v-btn prepend-icon="mdi-plus" @click="dialog_aviso_branch_carregamentos = true" text="Entrada de Carreta"></v-btn>
+      <!-- </NuxtLink> -->
     </v-col>
     <v-spacer ></v-spacer>
     <v-col cols="12" lg="4" md="4" align="right">
@@ -51,6 +51,12 @@
       <!-- <v-btn icon="mdi-filter" @click="getCarregamentos('ambev_cachoeiras')"></v-btn> -->
     </v-col>
   </v-row>
+
+  <v-dialog v-model="dialog_aviso_branch_carregamentos" max-width="540">
+    <v-card text="O link temporário para testar este módulo UCB/Carregamentos está no WhatsApp de Fábio Cardoso enviado por Roberto em 15/07/2024." title="Atenção!">
+      
+    </v-card>
+  </v-dialog>
 
   <v-alert 
     v-if="existe_filtro"
@@ -199,6 +205,19 @@
       {{i.nome}}
     </v-chip> -->
   </v-alert>
+  <v-alert 
+    border="start"
+    border-color="white"
+    
+    color="yellow"
+    class="mb-3"
+    
+    >
+    <span class="text-overline font-weight-bold">Atenção:</span> <span class="text-body-2">O link temporário para testar este módulo UCB/Carregamentos está no WhatsApp de Fábio Cardoso enviado por Roberto em 15/07/2024.</span>
+    <!-- <v-chip v-for="i in filtrosAtivos">
+      {{i.nome}}
+    </v-chip> -->
+  </v-alert>
 
   <v-data-table
     :items="dados_carregamentos"
@@ -221,6 +240,8 @@
 <script setup>
 import { ref, computed } from 'vue';
 import axios from 'axios';
+
+const dialog_aviso_branch_carregamentos = ref(false);
 
 function fn_teste_click(event, row) {
   // alert(aTesteID.value)
