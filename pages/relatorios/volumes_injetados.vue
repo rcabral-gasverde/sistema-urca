@@ -20,36 +20,76 @@
   </v-breadcrumbs>
 
   <!-- <div style="background-color: #f5f5f5; width: 100%; z-index: 999" id="divDatasConsumo"> -->
-  <div style="z-index: 1" id="divDatasConsumo" >
-    <v-row class="py-0 my-0">
-      <v-col cols="12" sm="4" md="2" lg="2" class="my-0 py-0">
-        <v-text-field
-          v-model="consumo_data_inicio"
-          label="Data de Consumo (Início)"
-          type="date"
-          variant="solo"
-          v-on:update:model-value=""
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" sm="4" md="2" lg="2" class="my-0 py-0">
-          <v-text-field
-          v-model="consumo_data_fim"
-          label="Data de Consumo (Fim)"
-          type="date"
-          variant="solo"
-          v-on:update:model-value=""
-        ></v-text-field>
-      </v-col>
-      <v-col class="my-0 py-0">
-        <v-btn text="Atualizar" size="x-large" style="" @click="getVolumes()"></v-btn>
-      </v-col>
-    </v-row>
+  <div style="display: flex; justify-content: space-between;">
+      
+      <div style="z-index: 1; flex-grow: 9;" id="divDatasConsumo">
+        <v-row class="py-0 my-0">
+          <v-col cols="12" sm="5" md="3" lg="3" class="my-0 py-0">
+            <v-text-field
+              v-model="consumo_data_inicio"
+              label="Data de Consumo (Início)"
+              type="date"
+              variant="solo"
+              v-on:update:model-value=""
+              ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="5" md="3" lg="3" class="my-0 py-0">
+              <v-text-field
+              v-model="consumo_data_fim"
+              label="Data de Consumo (Fim)"
+              type="date"
+              variant="solo"
+              v-on:update:model-value=""
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2" md="2" lg="2" class="my-0 py-0">
+            <v-btn text="Atualizar" size="x-large" style="" @click="getVolumes()"></v-btn>
+          </v-col>
+        </v-row>
+      </div>
+      <div style="flex-grow: 1; display: flex; justify-content: end;">
+        <v-btn size="x-large">Editar Dados</v-btn>
+        <!-- <v-btn size="x-large" @click="filter_dialog_add_dados = !filter_dialog_add_dados">Editar Dados</v-btn> -->
+      </div>
   </div>
+
+  <v-dialog v-model="filter_dialog_add_dados" max-width="640">
+    <v-card
+        title="Editar Dados"
+    >
+      <v-card-text>
+        <v-row dense>
+          <v-col cols="12" sm="11" md="11" lg="11">
+            <v-autocomplete 
+              v-model="filter_dialog_add_dados_cliente"
+              :items="cliente_cod_lista.map(e => {return {value: e.cliente_cod, title: e.apelido}})"
+              label="Cliente"
+              variant="outlined"
+              auto-select-first
+              clearable
+            >
+            </v-autocomplete>
+          </v-col>
+        </v-row>
+        <v-row dense>
+          <v-data-table :items="items_tabela_encerrantes_consumos">
+          </v-data-table>
+        </v-row>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <!-- <v-btn text="Limpar Filtros" variant="plain" @click="limparFiltros()"></v-btn> -->
+        <v-spacer></v-spacer>
+        <v-btn text="Fechar" variant="plain" @click="filter_dialog_add_dados = false"></v-btn>
+        <!-- <v-btn text="Aplicar Filtros" color="primary" variant="tonal" @click="getDeclaracoes()"></v-btn> -->
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 
   <div style="display: flex; justify-content: space-between;">
     <ClientOnly>
 
-      <div style="background-color: white; border-radius: 10px; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 40%; height: 400px; margin-left: 0px;">
+      <div style="background-color: white; border-radius: 10px; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 40%; height: 400px; margin-left: 0px;">
         <nuxt-plotly
           :data="data_lines_industrias"
           :layout="layout_lines_industrias"
@@ -59,7 +99,7 @@
         ></nuxt-plotly>
       </div>
 
-      <div style="background-color: white; border-radius: 10px; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 40%; height: 400px; margin-left: 15px;">
+      <div style="background-color: white; border-radius: 10px; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 40%; height: 400px; margin-left: 15px;">
         <nuxt-plotly
           :data="data_lines_postos"
           :layout="layout_lines_postos"
@@ -69,7 +109,7 @@
         ></nuxt-plotly>
       </div>
 
-      <div style="background-color: white; border-radius: 10px; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 10%; flex-grow: 1; height: 400px; margin-left: 15px;">
+      <div style="background-color: white; border-radius: 10px; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 10%; flex-grow: 1; height: 400px; margin-left: 15px;">
         
         <nuxt-plotly
           :data="data_ranking_postos"
@@ -89,7 +129,7 @@
   <div style="display: flex; justify-content: space-between">
     <ClientOnly>
       
-        <div style="background-color: white; border-radius: 10px; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 30%; height: 400px; margin-right: 15px; margin-top: 15px;">
+        <div style="background-color: white; border-radius: 10px; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 30%; height: 400px; margin-right: 15px; margin-top: 15px;">
           <nuxt-plotly
             :data="data_pie_totais"
             :layout="layout_pie_totais"
@@ -103,7 +143,7 @@
       
           <!-- INDÚSTRIAS -->
 
-          <div style="user-select: none; display: flex; flex-direction: row; justify-content:space-between; background-color: white; border-radius: 10px; border-left: 10px solid #ed7d31; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <div style="user-select: none; display: flex; flex-direction: row; justify-content:space-between; background-color: white; border-radius: 10px; border-left: 10px solid #ed7d31; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             
             <div style="background-color: transparent; flex-grow: 1">
               <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; background-color: transparent;">
@@ -124,7 +164,7 @@
 
           <!-- POSTOS -->
 
-          <div style="user-select: none; display: flex; flex-direction: row; justify-content:space-between; background-color: white; border-radius: 10px; border-left: 10px solid #4472C4; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <div style="user-select: none; display: flex; flex-direction: row; justify-content:space-between; background-color: white; border-radius: 10px; border-left: 10px solid #4472C4; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             
             <div style="background-color: transparent; flex-grow: 1">
               <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; background-color: transparent;">
@@ -145,7 +185,7 @@
 
           <!-- NEOGÁS -->
 
-          <div style="user-select: none; display: flex; flex-direction: row; justify-content:space-between; background-color: white; border-radius: 10px; border-left: 10px solid #1a9448; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <div style="user-select: none; display: flex; flex-direction: row; justify-content:space-between; background-color: white; border-radius: 10px; border-left: 10px solid #1a9448; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             
             <div style="background-color: transparent; flex-grow: 1">
               <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; background-color: transparent;">
@@ -166,7 +206,7 @@
 
           <!-- TOTAL -->
 
-          <div style="user-select: none; display: flex; flex-direction: row; justify-content:space-between; background-color: white; border-radius: 10px; border-left: 10px solid #121212; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <div style="user-select: none; display: flex; flex-direction: row; justify-content:space-between; background-color: white; border-radius: 10px; border-left: 10px solid #121212; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             
             <div style="background-color: transparent; flex-grow: 1">
               <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; background-color: transparent;">
@@ -200,14 +240,14 @@
 
 
 
-          <!-- <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #4472C4; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <!-- <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #4472C4; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             <div style="display: flex; flex-direction: column; align-items: center; width: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
               <div style="color: #4472C4; font-weight: bold; font-size:large;  line-height: normal">Postos</div>
               <div style="color: #4472C4; font-weight: bold; font-size:x-large;  line-height: normal">{{Intl.NumberFormat('pt-BR').format(volumesTotaisPeriodo_postos_TOTAL.toFixed(0))}} m³</div>
               <div style="color: #4472C4; font-weight: bold; font-size:large;  line-height: normal">{{Intl.NumberFormat('pt-BR').format(Math.round( ((100 * volumesTotaisPeriodo_postos_TOTAL)/(volumesTotaisPeriodo_postos_e_industrias_TOTAL + volumesTotaisPeriodo_neogas_TOTAL)) * 100) / 100)}} %</div>
             </div>
           </div>
-          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #1a9448; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #1a9448; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             <div style="display: flex; flex-direction: column; align-items: center; width: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
               <div style="color: #1a9448; font-weight: bold; font-size:large;  line-height: normal">NEOgás</div>
               <div style="color: #1a9448; font-weight: bold; font-size:x-large;  line-height: normal">{{Intl.NumberFormat('pt-BR').format(volumesTotaisPeriodo_neogas_TOTAL.toFixed(0))}} m³</div>
@@ -215,7 +255,7 @@
             </div>
           </div>
       
-          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #121212; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #121212; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             <div style="display: flex; flex-direction: column; align-items: center;width: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
               <div style="color: #121212; font-weight: bold; font-size:x-large">TOTAL</div>
               <div style="color: #121212; font-weight: bold; font-size:x-large">{{Intl.NumberFormat('pt-BR').format((volumesTotaisPeriodo_postos_e_industrias_TOTAL + volumesTotaisPeriodo_neogas_TOTAL).toFixed(0))}} m³</div>
@@ -226,26 +266,26 @@
 
         <!-- <div style="display: flex; flex-direction: column; width: 200px; justify-content: start; margin-left: 15px;">
       
-          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #ed7d31; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #ed7d31; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             <div style="display: flex; flex-direction: column; align-items: center; background-color: transparent; width: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
               <div style="color: #ed7d31; font-weight: bold; font-size:large;  line-height: normal">Projeção</div>
               <div style="color: #ed7d31; font-weight: bold; font-size:x-large; line-height: normal; text-align: center;">{{Intl.NumberFormat('pt-BR').format((volumesTotaisPeriodo_industrias_TOTAL * razao_para_projecao).toFixed(0))}} m³</div>
             </div>
           </div>
-          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #4472C4; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #4472C4; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             <div style="display: flex; flex-direction: column; align-items: center; width: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
               <div style="color: #4472C4; font-weight: bold; font-size:large;  line-height: normal">Postos</div>
               <div style="color: #4472C4; font-weight: bold; font-size:x-large;  line-height: normal">{{Intl.NumberFormat('pt-BR').format((volumesTotaisPeriodo_postos_TOTAL * razao_para_projecao).toFixed(0))}} m³</div>
             </div>
           </div>
-          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #1a9448; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #1a9448; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             <div style="display: flex; flex-direction: column; align-items: center; width: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
               <div style="color: #1a9448; font-weight: bold; font-size:large;  line-height: normal">NEOgás</div>
               <div style="color: #1a9448; font-weight: bold; font-size:x-large;  line-height: normal">{{Intl.NumberFormat('pt-BR').format((volumesTotaisPeriodo_neogas_TOTAL * razao_para_projecao).toFixed(0))}} m³</div>
             </div>
           </div>
       
-          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #121212; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
+          <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #121212; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25);  position: relative; width: 100%; height: 33%; margin-right: 15px; margin-top: 15px;">
             <div style="display: flex; flex-direction: column; align-items: center;width: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
               <div style="color: #121212; font-weight: bold; font-size:x-large">TOTAL</div>
               <div style="color: #121212; font-weight: bold; font-size:x-large">{{Intl.NumberFormat('pt-BR').format(((volumesTotaisPeriodo_postos_e_industrias_TOTAL + volumesTotaisPeriodo_neogas_TOTAL) * razao_para_projecao).toFixed(0))}} m³</div>
@@ -253,7 +293,7 @@
           </div>
       
         </div> -->
-        <div style="background-color: white; border-radius: 10px; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15); position: relative; width: 40%; height: 400px; margin-left: 15px; margin-top: 15px;">
+        <div style="background-color: white; border-radius: 10px; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25); position: relative; width: 40%; height: 400px; margin-left: 15px; margin-top: 15px;">
           <nuxt-plotly
             :data="data_lines_neogas"
             :layout="layout_lines_neogas"
@@ -283,7 +323,7 @@
   </v-row>
 
   <div style="display: flex; justify-content: start; background-color: transparent">
-    <div style="background-color: white; border-radius: 10px; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15); position: relative; width: 40%; height: 400px; margin-left: 0px;">
+    <div style="background-color: white; border-radius: 10px; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25); position: relative; width: 40%; height: 400px; margin-left: 0px;">
       <ClientOnly>
         <nuxt-plotly
           :data="data_lines_cliente_selecionado"
@@ -297,14 +337,14 @@
     </div>
       
     <div style="display: flex; flex-direction: column; margin-left: 15px; width: 300px;">
-      <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #4472C4; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15); position: relative; height: 25%;">
+      <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #4472C4; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25); position: relative; height: 25%;">
         <div style="display: flex; flex-direction: column; align-items: center; width: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
           <div style="color: #4472C4; font-weight: bold; font-size:x-large">Total Cliente</div>
           <div style="color: #4472C4; font-weight: bold; font-size:x-large">{{Intl.NumberFormat('pt-BR').format(((total_cliente_selecionado)).toFixed(0))}} m³</div>
         </div>
       </div>
       
-      <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #4472C4; box-sizing: border-box; box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.15); position: relative; height: 25%; margin-top: 15px">
+      <div style="user-select: none; background-color: white; border-radius: 10px; border-left: 10px solid #4472C4; box-sizing: border-box; box-shadow: 0px 2px 3px 1px rgba(0,0,0,0.25); position: relative; height: 25%; margin-top: 15px">
         <div style="display: flex; flex-direction: column; align-items: center; width: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); ">
           <div style="color: #4472C4; font-weight: bold; font-size:x-large">Projeção Fim Mês</div>
           <div style="color: #4472C4; font-weight: bold; font-size:x-large">{{Intl.NumberFormat('pt-BR').format(((total_cliente_selecionado) * razao_para_projecao).toFixed(0))}} m³</div>
@@ -327,6 +367,31 @@ import type {
 import axios from 'axios';
 
 import type {Ref} from 'vue'
+
+const filter_dialog_add_dados = ref(false);
+const filter_dialog_add_dados_cliente = ref();
+const items_tabela_encerrantes_consumos = [
+  {
+    data: "16/07/2024",
+    encerrante: "564.308,25",
+    consumo: "2.186,69"
+  },
+  {
+    data: "17/07/2024",
+    encerrante: "566.494,94",
+    consumo: "2.370,36"
+  },
+  {
+    data: "18/07/2024",
+    encerrante: "568.865,3",
+    consumo: "2.288,4"
+  },
+  {
+    data: "19/07/2024",
+    encerrante: "571.153,7",
+    consumo: ""
+  }
+]
 
 const consumo_data_inicio = ref();
 const consumo_data_fim = ref();
